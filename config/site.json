@@ -5,5 +5,6 @@
   "moreLinkLabel": "もっと見る",
   "compactLimit": 10,
   "listLimit": 80,
-  "categoryLimit": 20
+  "categoryLimit": 20,
+  "minPerCategory": 6
 }

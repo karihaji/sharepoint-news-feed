@@ -13,8 +13,43 @@
     "category": "transport",
     "source": "Googleニュース",
     "type": "google_news_search",
-    "query": "タクシー OR ライドシェア OR 地域交通 OR 交通空白",
-    "priority": 50,
+    "query": "タクシー OR ライドシェア OR 地域交通 OR 交通空白 OR 交通DX",
+    "includeKeywords": ["タクシー", "ライドシェア", "地域交通", "交通空白", "交通DX", "配車", "MaaS", "乗合", "デマンド交通"],
+    "excludeKeywords": ["死亡", "事故", "はね", "衝突", "横断中", "意識不明", "逮捕", "飲酒運転", "スニーカー", "SNKRDUNK", "中古スニーカー"],
+    "priority": 55,
+    "active": true
+  },
+  {
+    "id": "google_transport_press",
+    "category": "transport",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(タクシー OR ライドシェア OR 地域交通 OR MaaS OR 交通DX) (プレスリリース OR 発表 OR 実証実験 OR 導入)",
+    "includeKeywords": ["タクシー", "ライドシェア", "地域交通", "交通DX", "配車", "MaaS", "デマンド交通", "乗合"],
+    "excludeKeywords": ["死亡", "事故", "はね", "衝突", "横断中", "意識不明", "逮捕", "飲酒運転", "スニーカー", "SNKRDUNK", "中古スニーカー"],
+    "priority": 60,
+    "active": true
+  },
+  {
+    "id": "google_transport_service_press",
+    "category": "transport",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(タクシー OR 配車 OR ライドシェア OR デマンド交通 OR 地域交通 OR MaaS) (サービス OR アプリ OR システム OR 決済 OR 予約 OR 導入 OR 提供開始 OR 連携 OR プレスリリース)",
+    "includeKeywords": ["タクシー", "配車", "ライドシェア", "デマンド交通", "地域交通", "MaaS", "乗合", "交通DX"],
+    "excludeKeywords": ["死亡", "事故", "はね", "衝突", "横断中", "意識不明", "逮捕", "飲酒運転", "スニーカー", "SNKRDUNK", "中古スニーカー"],
+    "priority": 78,
+    "active": true
+  },
+  {
+    "id": "google_transport_prtimes",
+    "category": "transport",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "site:prtimes.jp (タクシー OR 配車 OR ライドシェア OR デマンド交通 OR 地域交通 OR MaaS)",
+    "includeKeywords": ["タクシー", "配車", "ライドシェア", "デマンド交通", "地域交通", "MaaS", "乗合"],
+    "excludeKeywords": ["死亡", "事故", "はね", "衝突", "横断中", "意識不明", "逮捕", "飲酒運転", "スニーカー", "SNKRDUNK", "中古スニーカー"],
+    "priority": 74,
     "active": true
   },
   {
@@ -23,6 +58,7 @@
     "source": "国土交通省",
     "type": "rss",
     "url": "https://www.mlit.go.jp/pressrelease.rdf",
+    "includeKeywords": ["タクシー", "バス", "地域交通", "公共交通", "交通空白", "自動運転", "MaaS", "物流", "運送"],
     "priority": 90,
     "active": true
   },
@@ -31,8 +67,42 @@
     "category": "shipping",
     "source": "Googleニュース",
     "type": "google_news_search",
-    "query": "フェリー OR 離島航路 OR 海運 OR 港湾 OR 屋久島 フェリー",
-    "priority": 50,
+    "query": "フェリー OR 離島航路 OR 内航海運 OR 海運 OR 港湾物流 OR 屋久島 フェリー",
+    "includeKeywords": ["フェリー", "離島航路", "内航", "海運", "港湾", "船舶", "海事", "船員"],
+    "excludeKeywords": ["ロシア", "北極圏", "原子力艦", "軍", "ホルムズ", "ホルモズ", "ペルシャ湾", "イラン", "IMO", "市場規模", "市場分析", "レポート"],
+    "priority": 58,
+    "active": true
+  },
+  {
+    "id": "google_shipping_industry",
+    "category": "shipping",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "日本海事新聞 OR 海事プレス OR 海運業界 OR 内航船 OR 旅客船 OR 港湾 OR 船員不足",
+    "includeKeywords": ["日本海事新聞", "海事", "海運", "内航", "旅客船", "港湾", "船員", "船舶", "フェリー"],
+    "excludeKeywords": ["ロシア", "北極圏", "原子力艦", "軍", "ホルムズ", "ホルモズ", "ペルシャ湾", "イラン", "IMO", "市場規模", "市場分析", "レポート"],
+    "priority": 62,
+    "active": true
+  },
+  {
+    "id": "google_shipping_press",
+    "category": "shipping",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(フェリー OR 海運 OR 内航海運 OR 港湾 OR 船舶 OR 離島航路) (プレスリリース OR 発表 OR 就航 OR 新造船 OR 実証)",
+    "includeKeywords": ["フェリー", "海運", "内航", "港湾", "船舶", "離島航路", "海事", "船員"],
+    "excludeKeywords": ["ホルムズ", "ホルモズ", "ペルシャ湾", "イラン", "IMO", "市場規模", "市場分析", "レポート"],
+    "priority": 82,
+    "active": true
+  },
+  {
+    "id": "google_shipping_prtimes",
+    "category": "shipping",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "site:prtimes.jp (フェリー OR 海運 OR 港湾 OR 船舶 OR 離島航路 OR 物流)",
+    "includeKeywords": ["フェリー", "海運", "港湾", "船舶", "離島航路", "海事", "船員"],
+    "priority": 80,
     "active": true
   },
   {
@@ -41,7 +111,8 @@
     "source": "国土交通省",
     "type": "rss",
     "url": "https://www.mlit.go.jp/pressrelease.rdf",
-    "priority": 80,
+    "includeKeywords": ["海運", "船舶", "フェリー", "旅客船", "内航", "港湾", "離島航路", "海事", "船員"],
+    "priority": 88,
     "active": true
   },
   {
@@ -49,8 +120,43 @@
     "category": "care",
     "source": "Googleニュース",
     "type": "google_news_search",
-    "query": "介護 OR 介護報酬 OR 介護人材 OR 高齢者福祉",
+    "query": "介護 OR 介護報酬 OR 介護人材 OR 高齢者福祉 OR 介護DX",
+    "includeKeywords": ["介護", "介護報酬", "介護人材", "高齢者福祉", "介護DX", "見守り", "認知症", "ケアマネ"],
+    "excludeKeywords": ["漫画", "毒親", "財産", "風俗", "丸投げ", "暴言", "トラウマ", "貯蓄", "オムツ", "占い", "芸能", "TVer", "ドキュメンタリー", "子ども", "子育て", "パチンコ", "パチスロ"],
     "priority": 50,
+    "active": true
+  },
+  {
+    "id": "google_care_press",
+    "category": "care",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(介護 OR 高齢者福祉 OR 介護施設 OR 介護DX OR 見守り) (プレスリリース OR 発表 OR 導入 OR 実証)",
+    "includeKeywords": ["介護", "高齢者福祉", "介護施設", "介護DX", "見守り", "認知症", "ケアマネ", "福祉"],
+    "excludeKeywords": ["漫画", "毒親", "財産", "風俗", "丸投げ", "暴言", "トラウマ", "貯蓄", "オムツ", "占い", "芸能", "TVer", "ドキュメンタリー", "子ども", "子育て", "パチンコ", "パチスロ"],
+    "priority": 82,
+    "active": true
+  },
+  {
+    "id": "google_care_service_press",
+    "category": "care",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(介護 OR 介護施設 OR 高齢者 OR 見守り OR 介護DX OR ケアマネ OR 認知症) (サービス OR アプリ OR システム OR SaaS OR ロボット OR センサー OR 導入 OR 提供開始 OR 連携 OR プレスリリース)",
+    "includeKeywords": ["介護", "介護施設", "高齢者", "見守り", "介護DX", "ケアマネ", "認知症", "福祉"],
+    "excludeKeywords": ["漫画", "毒親", "財産", "風俗", "丸投げ", "暴言", "トラウマ", "貯蓄", "オムツ", "占い", "芸能", "TVer", "ドキュメンタリー", "子ども", "子育て", "パチンコ", "パチスロ"],
+    "priority": 86,
+    "active": true
+  },
+  {
+    "id": "google_care_prtimes",
+    "category": "care",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "site:prtimes.jp (介護 OR 介護施設 OR 高齢者 OR 見守り OR 介護DX OR ケアマネ OR 認知症)",
+    "includeKeywords": ["介護", "介護施設", "高齢者", "見守り", "介護DX", "ケアマネ", "認知症", "福祉"],
+    "excludeKeywords": ["漫画", "毒親", "財産", "風俗", "丸投げ", "暴言", "トラウマ", "貯蓄", "オムツ", "占い", "芸能", "TVer", "ドキュメンタリー", "子ども", "子育て", "パチンコ", "パチスロ"],
+    "priority": 82,
     "active": true
   },
   {
@@ -59,7 +165,8 @@
     "source": "厚生労働省",
     "type": "rss",
     "url": "https://www.mhlw.go.jp/stf/news.rdf",
-    "priority": 90,
+    "includeKeywords": ["介護", "高齢者", "福祉", "介護保険", "介護報酬", "認知症", "看護"],
+    "priority": 68,
     "active": true
   },
   {
@@ -67,8 +174,42 @@
     "category": "pachinko",
     "source": "Googleニュース",
     "type": "google_news_search",
-    "query": "パチンコ OR パチスロ OR 全日遊連 OR 遊技業界",
-    "priority": 50,
+    "query": "パチンコ OR パチスロ OR 遊技機 OR 遊技業界 OR 全日遊連",
+    "includeKeywords": ["パチンコ", "パチスロ", "遊技機", "遊技業界", "全日遊連", "日遊協", "ホール"],
+    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース", "気分を楽しみ"],
+    "priority": 58,
+    "active": true
+  },
+  {
+    "id": "google_pachinko_industry",
+    "category": "pachinko",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "遊技通信 OR グリーンべると OR P-WORLD OR 全日遊連 OR 日遊協 OR パチンコ業界",
+    "includeKeywords": ["遊技通信", "グリーンべると", "P-WORLD", "全日遊連", "日遊協", "パチンコ", "パチスロ", "遊技"],
+    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース"],
+    "priority": 78,
+    "active": true
+  },
+  {
+    "id": "google_pachinko_press",
+    "category": "pachinko",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(パチンコ OR パチスロ OR 遊技機 OR ホール OR 遊技業界) (プレスリリース OR 発表 OR 導入 OR 新台)",
+    "includeKeywords": ["パチンコ", "パチスロ", "遊技機", "遊技業界", "新台", "全日遊連", "日遊協"],
+    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース"],
+    "priority": 76,
+    "active": true
+  },
+  {
+    "id": "google_pachinko_prtimes",
+    "category": "pachinko",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "site:prtimes.jp (パチンコ OR パチスロ OR 遊技機 OR ホール)",
+    "includeKeywords": ["パチンコ", "パチスロ", "遊技機", "遊技業界", "新台"],
+    "priority": 74,
     "active": true
   },
   {
@@ -77,7 +218,38 @@
     "source": "Googleニュース",
     "type": "google_news_search",
     "query": "ボウリング場 OR ボウリング大会 OR ボウリングの日 OR 日本ボウリング場協会",
-    "priority": 50,
+    "includeKeywords": ["ボウリング", "ボウリング場", "プロボウリング", "JPBA", "JBC", "日本ボウリング場協会"],
+    "priority": 56,
+    "active": true
+  },
+  {
+    "id": "google_bowling_industry",
+    "category": "bowling",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "ボウリング業界 OR ボウリング場 協会 OR プロボウリング OR JPBA OR JBC ボウリング",
+    "includeKeywords": ["ボウリング", "プロボウリング", "JPBA", "JBC", "日本ボウリング場協会"],
+    "priority": 62,
+    "active": true
+  },
+  {
+    "id": "google_bowling_press",
+    "category": "bowling",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(ボウリング OR ボウリング場 OR プロボウリング OR ボウリング大会) (プレスリリース OR 発表 OR 開催 OR キャンペーン)",
+    "includeKeywords": ["ボウリング", "プロボウリング", "JPBA", "JBC", "日本ボウリング場協会"],
+    "priority": 76,
+    "active": true
+  },
+  {
+    "id": "google_bowling_prtimes",
+    "category": "bowling",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "site:prtimes.jp (ボウリング OR ボウリング場 OR プロボウリング)",
+    "includeKeywords": ["ボウリング", "プロボウリング", "JPBA", "JBC"],
+    "priority": 74,
     "active": true
   },
   {
@@ -94,35 +266,63 @@
     "category": "ai_it",
     "source": "Googleニュース",
     "type": "google_news_search",
-    "query": "生成AI OR Copilot OR Microsoft 365 OR 情報セキュリティ OR サイバー攻撃",
-    "priority": 50,
+    "query": "(生成AI OR ChatGPT OR OpenAI OR Copilot OR Microsoft 365 OR 情報セキュリティ OR サイバー攻撃 OR DX) -アニメ -漫画 -映画",
+    "includeKeywords": ["生成AI", "AI", "ChatGPT", "OpenAI", "Copilot", "Microsoft 365", "情報セキュリティ", "サイバー", "DX", "クラウド"],
+    "excludeKeywords": ["アニメ", "漫画", "映画", "ゲーム攻略"],
+    "priority": 58,
     "active": true
   },
   {
-    "id": "gigazine",
+    "id": "google_ai_it_press",
+    "category": "ai_it",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(生成AI OR ChatGPT OR Copilot OR Microsoft 365 OR セキュリティ OR DX OR クラウド) (プレスリリース OR 発表 OR 導入 OR 提供開始)",
+    "includeKeywords": ["生成AI", "AI", "ChatGPT", "Copilot", "Microsoft 365", "セキュリティ", "DX", "クラウド"],
+    "excludeKeywords": ["アニメ", "漫画", "映画", "ゲーム攻略"],
+    "priority": 56,
+    "active": true
+  },
+  {
+    "id": "google_ai_it_prtimes",
+    "category": "ai_it",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "site:prtimes.jp (生成AI OR ChatGPT OR Copilot OR Microsoft 365 OR 情報セキュリティ OR DX)",
+    "includeKeywords": ["生成AI", "AI", "ChatGPT", "Copilot", "Microsoft 365", "情報セキュリティ", "DX"],
+    "excludeKeywords": ["アニメ", "漫画", "映画", "ゲーム攻略"],
+    "priority": 52,
+    "active": true
+  },
+  {
+    "id": "gigazine_ai_it",
     "category": "ai_it",
     "source": "GIGAZINE",
     "type": "rss",
     "url": "https://gigazine.net/news/rss_2.0/",
-    "priority": 70,
+    "includeKeywords": ["生成AI", "ChatGPT", "OpenAI", "Anthropic", "Claude", "Gemini", "Copilot", "AI", "セキュリティ", "サイバー", "クラウド", "MCP"],
+    "excludeKeywords": ["試食", "レビュー", "アニメ", "映画", "漫画", "ゲーム", "レシピ", "iPhoneでFirefox", "SideStore", "野良アプリ"],
+    "priority": 64,
     "active": true
   },
   {
-    "id": "forest_watch",
+    "id": "forest_watch_ai_it",
     "category": "ai_it",
     "source": "窓の杜",
     "type": "rss",
     "url": "https://forest.watch.impress.co.jp/data/rss/1.0/wf/feed.rdf",
-    "priority": 70,
+    "includeKeywords": ["AI", "Copilot", "Microsoft", "Windows", "セキュリティ", "ブラウザー", "生成AI", "クラウド", "業務"],
+    "priority": 68,
     "active": true
   },
   {
-    "id": "internet_watch",
+    "id": "internet_watch_ai_it",
     "category": "ai_it",
     "source": "INTERNET Watch",
     "type": "rss",
     "url": "https://internet.watch.impress.co.jp/data/rss/1.0/iw/feed.rdf",
-    "priority": 70,
+    "includeKeywords": ["AI", "生成AI", "セキュリティ", "サイバー", "Microsoft", "Google", "クラウド", "通信", "SNS", "DX", "自治体"],
+    "priority": 68,
     "active": true
   },
   {
@@ -131,7 +331,9 @@
     "source": "デジタル庁",
     "type": "rss",
     "url": "https://www.digital.go.jp/rss/news.xml",
-    "priority": 75,
+    "includeKeywords": ["AI", "システム", "セキュリティ", "ガバメントクラウド", "DX", "標準型電子カルテ", "クラウド"],
+    "excludeKeywords": ["採用", "業務説明会", "イベント情報", "地震", "ダッシュボードのデータ更新"],
+    "priority": 62,
     "active": true
   }
 ]

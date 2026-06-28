@@ -113,14 +113,19 @@ function toNewsItem(item, source, feed, capturedAt) {
   const publishedDate = parseDate(item.isoDate ?? item.pubDate ?? item.published ?? item.updated);
   const publishedAt = formatDateOnly(publishedDate);
   const sourceName = cleanText(
-    item.source?.title ??
-      item.source ??
-      titleParts.source ??
-      source.source ??
-      feed.title ??
+    item.source?.title ||
+      item.source ||
+      titleParts.source ||
+      source.source ||
+      feed.title ||
       ""
   );
   const groupKey = normalizeTitle(title);
+  const searchText = normalizeSearchText(`${title} ${sourceName} ${url}`);
+
+  if (!passesSourceFilters(searchText, source)) {
+    return null;
+  }
 
   return {
     id: createId(url || groupKey),
@@ -136,6 +141,21 @@ function toNewsItem(item, source, feed, capturedAt) {
     _priority: Number(source.priority ?? 0),
     _sourceId: source.id
   };
+}
+
+function passesSourceFilters(searchText, source) {
+  const includeKeywords = source.includeKeywords ?? [];
+  const excludeKeywords = source.excludeKeywords ?? [];
+
+  if (excludeKeywords.some((keyword) => searchText.includes(normalizeSearchText(keyword)))) {
+    return false;
+  }
+
+  if (includeKeywords.length === 0) {
+    return true;
+  }
+
+  return includeKeywords.some((keyword) => searchText.includes(normalizeSearchText(keyword)));
 }
 
 function splitTitleAndSource(title, sourceType) {
@@ -234,19 +254,45 @@ function isSameTopic(a, b) {
 function applyLimits(items, site) {
   const categoryLimit = Number(site.categoryLimit ?? 20);
   const listLimit = Number(site.listLimit ?? 80);
+  const minPerCategory = Number(site.minPerCategory ?? 0);
   const perCategoryCounts = new Map();
+  const selectedIds = new Set();
+  const selected = [];
+  const sorted = items.sort(compareNews);
+  const categoryIds = [...new Set(sorted.map((item) => item.category))];
 
-  return items
-    .sort(compareNews)
-    .filter((item) => {
-      const count = perCategoryCounts.get(item.category) ?? 0;
-      if (count >= categoryLimit) {
-        return false;
+  for (const categoryId of categoryIds) {
+    const categoryItems = sorted.filter((item) => item.category === categoryId);
+    for (const item of categoryItems.slice(0, Math.min(minPerCategory, categoryLimit))) {
+      if (selected.length >= listLimit) {
+        break;
       }
-      perCategoryCounts.set(item.category, count + 1);
-      return true;
-    })
-    .slice(0, listLimit);
+      selected.push(item);
+      selectedIds.add(item.id);
+      perCategoryCounts.set(item.category, (perCategoryCounts.get(item.category) ?? 0) + 1);
+    }
+  }
+
+  for (const item of sorted) {
+    if (selected.length >= listLimit) {
+      break;
+    }
+
+    if (selectedIds.has(item.id)) {
+      continue;
+    }
+
+    const count = perCategoryCounts.get(item.category) ?? 0;
+    if (count >= categoryLimit) {
+      continue;
+    }
+
+    selected.push(item);
+    selectedIds.add(item.id);
+    perCategoryCounts.set(item.category, count + 1);
+  }
+
+  return selected.sort(compareNews);
 }
 
 function normalizeUrl(value) {
@@ -326,7 +372,14 @@ function addRelatedSource(item, source) {
 }
 
 function compareNews(a, b) {
-  return b._date.getTime() - a._date.getTime() || b._priority - a._priority;
+  const dateDiff = b._date.getTime() - a._date.getTime();
+  const sameRecentWindow = Math.abs(dateDiff) <= 7 * 24 * 60 * 60 * 1000;
+
+  if (sameRecentWindow && a._priority !== b._priority) {
+    return b._priority - a._priority;
+  }
+
+  return dateDiff || b._priority - a._priority;
 }
 
 function stripInternalFields(item) {
@@ -338,6 +391,12 @@ function cleanText(value) {
   return String(value ?? "")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function normalizeSearchText(value) {
+  return cleanText(value)
+    .replace(/\u3000/g, " ")
+    .toLowerCase();
 }
 
 function parseDate(value) {
