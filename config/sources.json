@@ -4,8 +4,19 @@
     "category": "local",
     "source": "Googleニュース",
     "type": "google_news_search",
-    "query": "鹿児島 OR 屋久島 OR 奄美 OR 南九州",
-    "priority": 50,
+    "query": "鹿児島 OR 屋久島 OR 奄美 OR 南九州 OR 鹿児島県",
+    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB"],
+    "priority": 82,
+    "active": true
+  },
+  {
+    "id": "google_local_press",
+    "category": "local",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(鹿児島 OR 屋久島 OR 奄美 OR 南九州 OR 鹿児島県) (プレスリリース OR 発表 OR 開業 OR 導入 OR 連携 OR 実証)",
+    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB"],
+    "priority": 78,
     "active": true
   },
   {
@@ -187,7 +198,7 @@
     "type": "google_news_search",
     "query": "遊技通信 OR グリーンべると OR P-WORLD OR 全日遊連 OR 日遊協 OR パチンコ業界",
     "includeKeywords": ["遊技通信", "グリーンべると", "P-WORLD", "全日遊連", "日遊協", "パチンコ", "パチスロ", "遊技"],
-    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース"],
+    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース", "店舗情報"],
     "priority": 78,
     "active": true
   },
@@ -198,7 +209,7 @@
     "type": "google_news_search",
     "query": "(パチンコ OR パチスロ OR 遊技機 OR ホール OR 遊技業界) (プレスリリース OR 発表 OR 導入 OR 新台)",
     "includeKeywords": ["パチンコ", "パチスロ", "遊技機", "遊技業界", "新台", "全日遊連", "日遊協"],
-    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース"],
+    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース", "店舗情報"],
     "priority": 76,
     "active": true
   },
@@ -210,6 +221,28 @@
     "query": "site:prtimes.jp (パチンコ OR パチスロ OR 遊技機 OR ホール)",
     "includeKeywords": ["パチンコ", "パチスロ", "遊技機", "遊技業界", "新台"],
     "priority": 74,
+    "active": true
+  },
+  {
+    "id": "google_pachinko_machines",
+    "category": "pachinko",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(パチンコ新台 OR パチスロ新台 OR スマパチ OR スマスロ OR 遊技機 新機種 OR 遊技台 OR 導入予定 OR 機種情報)",
+    "includeKeywords": ["新台", "遊技機", "遊技台", "新機種", "スマパチ", "スマスロ", "導入予定", "パチンコ", "パチスロ"],
+    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース", "店舗情報"],
+    "priority": 86,
+    "active": true
+  },
+  {
+    "id": "google_pachinko_dmm_new",
+    "category": "pachinko",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "DMMぱちタウン 新台 OR グリーンべると 新台 OR P-WORLD 新台 OR パチンコ 新台スケジュール OR パチスロ 新台スケジュール",
+    "includeKeywords": ["DMMぱちタウン", "グリーンべると", "P-WORLD", "新台", "新機種", "導入", "パチンコ", "パチスロ"],
+    "excludeKeywords": ["芸人", "グラドル", "収支", "釣り", "末路", "胸元", "チューブトップ", "ボートレース", "店舗情報"],
+    "priority": 88,
     "active": true
   },
   {
@@ -250,15 +283,6 @@
     "query": "site:prtimes.jp (ボウリング OR ボウリング場 OR プロボウリング)",
     "includeKeywords": ["ボウリング", "プロボウリング", "JPBA", "JBC"],
     "priority": 74,
-    "active": true
-  },
-  {
-    "id": "google_sns",
-    "category": "sns",
-    "source": "Googleニュース",
-    "type": "google_news_search",
-    "query": "Xで話題 OR TikTok トレンド OR Instagram リール OR Threads 話題",
-    "priority": 50,
     "active": true
   },
   {

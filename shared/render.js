@@ -133,7 +133,6 @@ function getCategoryIcon(categoryId) {
     care: "介",
     pachinko: "遊",
     bowling: "球",
-    sns: "SNS",
     ai_it: "AI"
   }[categoryId] ?? "N";
 }

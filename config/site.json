@@ -4,7 +4,7 @@
   "moreLinkUrl": "",
   "moreLinkLabel": "もっと見る",
   "compactLimit": 10,
-  "listLimit": 80,
-  "categoryLimit": 20,
-  "minPerCategory": 6
+  "listLimit": 350,
+  "categoryLimit": 50,
+  "minPerCategory": 50
 }

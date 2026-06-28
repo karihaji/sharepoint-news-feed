@@ -6,6 +6,5 @@
   { "id": "care", "label": "介護" },
   { "id": "pachinko", "label": "遊技" },
   { "id": "bowling", "label": "ボウリング" },
-  { "id": "sns", "label": "SNS" },
   { "id": "ai_it", "label": "AI・IT" }
 ]
