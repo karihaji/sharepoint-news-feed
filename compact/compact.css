@@ -101,6 +101,61 @@ h1 {
   box-shadow: 0 5px 14px rgba(47, 111, 115, 0.13);
 }
 
+.category-tab[data-category="all"][aria-selected="true"] {
+  border-color: var(--all);
+  background: var(--all-soft);
+  color: #454a54;
+}
+
+.category-tab[data-category="local"][aria-selected="true"] {
+  border-color: var(--local);
+  background: var(--local-soft);
+  color: #9c3e24;
+  box-shadow: 0 7px 18px rgba(207, 92, 54, 0.16);
+}
+
+.category-tab[data-category="transport"][aria-selected="true"] {
+  border-color: var(--transport);
+  background: var(--transport-soft);
+  color: #24585b;
+  box-shadow: 0 7px 18px rgba(47, 111, 115, 0.16);
+}
+
+.category-tab[data-category="shipping"][aria-selected="true"] {
+  border-color: var(--shipping);
+  background: var(--shipping-soft);
+  color: #274f84;
+  box-shadow: 0 7px 18px rgba(51, 102, 168, 0.16);
+}
+
+.category-tab[data-category="care"][aria-selected="true"] {
+  border-color: var(--care);
+  background: var(--care-soft);
+  color: #625425;
+  box-shadow: 0 7px 18px rgba(122, 106, 46, 0.16);
+}
+
+.category-tab[data-category="pachinko"][aria-selected="true"] {
+  border-color: var(--pachinko);
+  background: var(--pachinko-soft);
+  color: #803c5a;
+  box-shadow: 0 7px 18px rgba(163, 79, 116, 0.16);
+}
+
+.category-tab[data-category="bowling"][aria-selected="true"] {
+  border-color: var(--bowling);
+  background: var(--bowling-soft);
+  color: #51478b;
+  box-shadow: 0 7px 18px rgba(108, 95, 179, 0.16);
+}
+
+.category-tab[data-category="ai_it"][aria-selected="true"] {
+  border-color: var(--ai-it);
+  background: var(--ai-it-soft);
+  color: #3d4a7c;
+  box-shadow: 0 7px 18px rgba(79, 95, 159, 0.16);
+}
+
 .category-tab:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 14px rgba(39, 49, 63, 0.08);
@@ -234,6 +289,41 @@ h1 {
   border-color: rgba(47, 111, 115, 0.28);
   box-shadow: var(--shadow);
   transform: translateY(-4px);
+}
+
+.news-list[data-selected-category="local"] .news-card {
+  background: linear-gradient(145deg, #ffffff, rgba(245, 222, 213, 0.45));
+  border-color: rgba(207, 92, 54, 0.28);
+}
+
+.news-list[data-selected-category="transport"] .news-card {
+  background: linear-gradient(145deg, #ffffff, rgba(219, 236, 234, 0.5));
+  border-color: rgba(47, 111, 115, 0.28);
+}
+
+.news-list[data-selected-category="shipping"] .news-card {
+  background: linear-gradient(145deg, #ffffff, rgba(219, 230, 246, 0.52));
+  border-color: rgba(51, 102, 168, 0.26);
+}
+
+.news-list[data-selected-category="care"] .news-card {
+  background: linear-gradient(145deg, #ffffff, rgba(238, 232, 207, 0.52));
+  border-color: rgba(122, 106, 46, 0.28);
+}
+
+.news-list[data-selected-category="pachinko"] .news-card {
+  background: linear-gradient(145deg, #ffffff, rgba(240, 216, 226, 0.5));
+  border-color: rgba(163, 79, 116, 0.28);
+}
+
+.news-list[data-selected-category="bowling"] .news-card {
+  background: linear-gradient(145deg, #ffffff, rgba(228, 224, 244, 0.52));
+  border-color: rgba(108, 95, 179, 0.28);
+}
+
+.news-list[data-selected-category="ai_it"] .news-card {
+  background: linear-gradient(145deg, #ffffff, rgba(224, 228, 242, 0.52));
+  border-color: rgba(79, 95, 159, 0.28);
 }
 
 .news-meta {

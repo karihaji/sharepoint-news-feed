@@ -42,6 +42,8 @@ async function init() {
 }
 
 function render() {
+  listElement.dataset.selectedCategory = state.selectedCategory;
+
   renderTabs(tabsElement, state.categories, state.selectedCategory, (categoryId) => {
     state.selectedCategory = categoryId;
     render();
