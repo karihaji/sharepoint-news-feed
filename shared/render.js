@@ -81,6 +81,10 @@ function createNewsCard(item, categories) {
   article.className = "news-card";
   article.dataset.category = item.category;
 
+  const accent = document.createElement("div");
+  accent.className = "news-accent";
+  accent.setAttribute("aria-hidden", "true");
+
   const meta = document.createElement("div");
   meta.className = "news-meta";
 
@@ -120,7 +124,11 @@ function createNewsCard(item, categories) {
   link.setAttribute("aria-label", `${item.title} の元記事を新しいタブで開きます`);
   link.innerHTML = "元記事を開く <span aria-hidden=\"true\">↗</span>";
 
-  article.append(meta, title, link);
+  const footer = document.createElement("div");
+  footer.className = "news-footer";
+  footer.append(link);
+
+  article.append(accent, meta, title, footer);
   return article;
 }
 
