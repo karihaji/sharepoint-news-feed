@@ -1,0 +1,11 @@
+[
+  { "id": "all", "label": "すべて" },
+  { "id": "local", "label": "地域" },
+  { "id": "transport", "label": "交通" },
+  { "id": "shipping", "label": "海運" },
+  { "id": "care", "label": "介護" },
+  { "id": "pachinko", "label": "遊技" },
+  { "id": "bowling", "label": "ボウリング" },
+  { "id": "sns", "label": "SNS" },
+  { "id": "ai_it", "label": "AI・IT" }
+]

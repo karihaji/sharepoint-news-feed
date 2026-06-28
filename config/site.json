@@ -1,0 +1,9 @@
+{
+  "siteTitle": "広報ニュースフィード",
+  "siteDescription": "地域・業界・SNS・AI/ITの話題をカテゴリ別に確認",
+  "moreLinkUrl": "",
+  "moreLinkLabel": "もっと見る",
+  "compactLimit": 10,
+  "listLimit": 80,
+  "categoryLimit": 20
+}

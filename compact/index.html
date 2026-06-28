@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>広報ニュースフィード</title>
+    <link rel="stylesheet" href="./compact.css">
+  </head>
+  <body>
+    <main class="feed-shell">
+      <header class="feed-header">
+        <div>
+          <h1 id="site-title">広報ニュースフィード</h1>
+          <p class="updated-at">最終更新：<span id="updated-at">読み込み中</span></p>
+        </div>
+        <a id="more-link-top" class="more-link more-link-top" hidden target="_blank" rel="noopener noreferrer"></a>
+      </header>
+
+      <nav id="category-tabs" class="category-tabs" aria-label="カテゴリ"></nav>
+      <section id="news-list" class="news-list" aria-live="polite"></section>
+      <a id="more-link-bottom" class="more-link" hidden target="_blank" rel="noopener noreferrer"></a>
+    </main>
+    <script type="module" src="./compact.js"></script>
+  </body>
+</html>
