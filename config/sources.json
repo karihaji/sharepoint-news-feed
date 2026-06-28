@@ -4,8 +4,8 @@
     "category": "local",
     "source": "Googleニュース",
     "type": "google_news_search",
-    "query": "鹿児島 OR 屋久島 OR 奄美 OR 南九州 OR 鹿児島県",
-    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB"],
+    "query": "鹿児島 OR 屋久島 OR 種子島 OR 西之表 OR 中種子 OR 南種子 OR 奄美 OR 南九州 OR 鹿児島県",
+    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB", "過去の天気", "実況天気", "アメダス", "潮汐", "潮位表", "YouTube", "弾き語り", "プレゼント", "TVer", "ネタばれ"],
     "priority": 82,
     "active": true
   },
@@ -14,9 +14,39 @@
     "category": "local",
     "source": "Googleニュース",
     "type": "google_news_search",
-    "query": "(鹿児島 OR 屋久島 OR 奄美 OR 南九州 OR 鹿児島県) (プレスリリース OR 発表 OR 開業 OR 導入 OR 連携 OR 実証)",
-    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB"],
+    "query": "(鹿児島 OR 屋久島 OR 種子島 OR 西之表 OR 中種子 OR 南種子 OR 奄美 OR 南九州 OR 鹿児島県) (プレスリリース OR 発表 OR 開業 OR 導入 OR 連携 OR 実証)",
+    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB", "過去の天気", "実況天気", "アメダス", "潮汐", "潮位表", "YouTube", "弾き語り", "プレゼント", "TVer", "ネタばれ"],
     "priority": 78,
+    "active": true
+  },
+  {
+    "id": "google_local_yakushima",
+    "category": "local",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "屋久島 OR 屋久島町 OR 安房港 OR 宮之浦港 OR 種子屋久 OR 屋久島空港 OR 屋久島観光 OR 屋久島 世界自然遺産 OR 屋久島町議会 OR 屋久島 航路",
+    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB", "過去の天気", "実況天気", "アメダス", "潮汐", "潮位表", "YouTube", "弾き語り", "プレゼント", "TVer", "ネタばれ"],
+    "priority": 98,
+    "active": true
+  },
+  {
+    "id": "google_local_tanegashima",
+    "category": "local",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "種子島 OR 西之表 OR 中種子 OR 南種子 OR 種子島空港 OR 西之表港 OR 種子島宇宙センター",
+    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB", "過去の天気", "実況天気", "アメダス", "潮汐", "潮位表", "YouTube", "弾き語り", "プレゼント", "TVer", "ネタばれ"],
+    "priority": 92,
+    "active": true
+  },
+  {
+    "id": "google_local_islands_press",
+    "category": "local",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(屋久島 OR 屋久島町 OR 種子島 OR 西之表 OR 中種子 OR 南種子 OR 奄美 OR 奄美大島) (発表 OR プレスリリース OR 事業 OR 観光 OR 交通 OR 防災 OR 実証 OR 開始 OR 開催)",
+    "excludeKeywords": ["博多", "鳥栖", "門司港", "大牟田", "福岡", "鹿児島本線", "鹿児島線", "JR鹿児島線", "ＪＲ鹿児島線", "KBC", "RKB", "過去の天気", "実況天気", "アメダス", "潮汐", "潮位表", "YouTube", "弾き語り", "プレゼント", "TVer", "ネタばれ"],
+    "priority": 90,
     "active": true
   },
   {

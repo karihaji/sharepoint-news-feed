@@ -261,15 +261,51 @@ function applyLimits(items, site) {
   const sorted = items.sort(compareNews);
   const categoryIds = [...new Set(sorted.map((item) => item.category))];
 
+  const localMinimums = [
+    { pattern: /屋久島|屋久島町|宮之浦|安房/, limit: 8 },
+    { pattern: /種子島|西之表|中種子|南種子/, limit: 8 }
+  ];
+
+  for (const group of localMinimums) {
+    const candidates = sorted.filter(
+      (item) => item.category === "local" && group.pattern.test(item.title)
+    );
+
+    for (const item of candidates.slice(0, group.limit)) {
+      if (selected.length >= listLimit || selectedIds.has(item.id)) {
+        continue;
+      }
+
+      const count = perCategoryCounts.get(item.category) ?? 0;
+      if (count >= categoryLimit) {
+        continue;
+      }
+
+      selected.push(item);
+      selectedIds.add(item.id);
+      perCategoryCounts.set(item.category, count + 1);
+    }
+  }
+
   for (const categoryId of categoryIds) {
     const categoryItems = sorted.filter((item) => item.category === categoryId);
     for (const item of categoryItems.slice(0, Math.min(minPerCategory, categoryLimit))) {
       if (selected.length >= listLimit) {
         break;
       }
+
+      if (selectedIds.has(item.id)) {
+        continue;
+      }
+
+      const count = perCategoryCounts.get(item.category) ?? 0;
+      if (count >= categoryLimit) {
+        continue;
+      }
+
       selected.push(item);
       selectedIds.add(item.id);
-      perCategoryCounts.set(item.category, (perCategoryCounts.get(item.category) ?? 0) + 1);
+      perCategoryCounts.set(item.category, count + 1);
     }
   }
 
