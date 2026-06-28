@@ -8,11 +8,20 @@ export function renderTabs(container, categories, selectedCategory, onSelect) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "category-tab";
-    button.textContent = category.label;
     button.dataset.category = category.id;
     button.setAttribute("role", "tab");
     button.setAttribute("aria-selected", String(category.id === selectedCategory));
     button.tabIndex = category.id === selectedCategory ? 0 : -1;
+
+    const icon = document.createElement("span");
+    icon.className = "category-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = getCategoryIcon(category.id);
+
+    const label = document.createElement("span");
+    label.textContent = category.label;
+
+    button.append(icon, label);
 
     button.addEventListener("click", () => onSelect(category.id));
     button.addEventListener("keydown", (event) => {
@@ -70,13 +79,24 @@ export function createMessage(text) {
 function createNewsCard(item, categories) {
   const article = document.createElement("article");
   article.className = "news-card";
+  article.dataset.category = item.category;
 
   const meta = document.createElement("div");
   meta.className = "news-meta";
 
   const category = document.createElement("span");
   category.className = "news-category";
-  category.textContent = getCategoryLabel(categories, item.category);
+  category.dataset.category = item.category;
+
+  const categoryIcon = document.createElement("span");
+  categoryIcon.className = "category-icon";
+  categoryIcon.setAttribute("aria-hidden", "true");
+  categoryIcon.textContent = getCategoryIcon(item.category);
+
+  const categoryText = document.createElement("span");
+  categoryText.textContent = getCategoryLabel(categories, item.category);
+
+  category.append(categoryIcon, categoryText);
 
   const source = document.createElement("span");
   source.className = "news-source";
@@ -102,4 +122,18 @@ function createNewsCard(item, categories) {
 
   article.append(meta, title, link);
   return article;
+}
+
+function getCategoryIcon(categoryId) {
+  return {
+    all: "全",
+    local: "地",
+    transport: "交",
+    shipping: "海",
+    care: "介",
+    pachinko: "遊",
+    bowling: "球",
+    sns: "SNS",
+    ai_it: "AI"
+  }[categoryId] ?? "N";
 }
