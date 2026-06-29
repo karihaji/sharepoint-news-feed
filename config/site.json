@@ -1,7 +1,7 @@
 {
   "siteTitle": "広報ニュースフィード",
   "siteDescription": "地域・業界・SNS・AI/ITの話題をカテゴリ別に確認",
-  "moreLinkUrl": "",
+  "moreLinkUrl": "https://ichimarugroup.sharepoint.com/sites/ichimaru-internal-portal/SitePages/%E4%BA%8B%E6%A5%AD%E9%A0%98%E5%9F%9F%E5%88%A5%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9%E3%83%95%E3%82%A3%E3%83%BC%E3%83%89.aspx",
   "moreLinkLabel": "もっと見る",
   "compactLimit": 10,
   "listLimit": 350,
