@@ -22,6 +22,38 @@ npm run serve
 
 `config/site.json` の `moreLinkUrl` にSharePoint側の一覧ページURLを設定すると、compact版に「もっと見る ↗」が表示されます。
 
+## SharePoint埋め込みパーツ
+
+SharePointの「埋め込み」Webパーツに、以下のiframeコードを貼り付けます。
+
+### トップページ用 compact版
+
+```html
+<iframe
+  title="広報ニュースフィード"
+  src="https://karihaji.github.io/sharepoint-news-feed/compact/"
+  width="100%"
+  height="560"
+  style="border:0; width:100%; max-width:100%;"
+  loading="lazy">
+</iframe>
+```
+
+### 一覧ページ用 list版
+
+```html
+<iframe
+  title="広報ニュースフィード一覧"
+  src="https://karihaji.github.io/sharepoint-news-feed/list/"
+  width="100%"
+  height="900"
+  style="border:0; width:100%; max-width:100%;"
+  loading="lazy">
+</iframe>
+```
+
+スマホやSharePointの細いカラムでは、iframeの `width="100%"` を維持してください。高さは配置先のページに合わせて調整できます。
+
 ## GitHub Pages
 
 1. このフォルダの内容をGitHubリポジトリへ配置します。
