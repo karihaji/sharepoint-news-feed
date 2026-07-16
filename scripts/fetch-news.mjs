@@ -36,7 +36,7 @@ const DECORATION_WORDS = [
 
 const MUST_READ_CATEGORY = {
   id: "must_read_today",
-  label: "今日読むべきニュース"
+  label: "今読むべきニュース"
 };
 
 const MUST_READ_LIMIT = 10;
@@ -53,6 +53,7 @@ const SOURCE_RANKS = [
 
 const EXCLUDE_PATTERNS = [
   /逮捕|犯罪|裁判|殺人|詐欺|窃盗|強盗|送検|起訴|有罪|容疑/,
+  /無断|盗難|盗ん|停職|懲戒|戒告|減給|処分|摘発/,
   /死亡|遺体|重体|意識不明/,
   /芸能|ゴシップ|炎上|不倫|熱愛|離婚/,
   /試合結果|勝敗|サヨナラ勝ち|高校野球|インターハイ/,
@@ -517,13 +518,13 @@ function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
   let score = 0;
 
   if (item.publishedAt === today) {
-    score += 30;
+    score += 55;
     matchedRules.push("published_today");
   } else if (item.publishedAt === yesterday) {
-    score += 18;
+    score += 8;
     matchedRules.push("published_yesterday");
   } else {
-    score += 5;
+    score += 0;
     matchedRules.push("exceptional_recent");
   }
 
