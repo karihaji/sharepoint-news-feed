@@ -80,6 +80,9 @@ function createNewsCard(item, categories) {
   const article = document.createElement("article");
   article.className = "news-card";
   article.dataset.category = item.category;
+  if (item.originalCategory) {
+    article.dataset.originalCategory = item.originalCategory;
+  }
 
   const accent = document.createElement("div");
   accent.className = "news-accent";
@@ -90,17 +93,24 @@ function createNewsCard(item, categories) {
 
   const category = document.createElement("span");
   category.className = "news-category";
-  category.dataset.category = item.category;
+  const displayCategoryId = item.originalCategory || item.category;
+  category.dataset.category = displayCategoryId;
 
   const categoryIcon = document.createElement("span");
   categoryIcon.className = "category-icon";
   categoryIcon.setAttribute("aria-hidden", "true");
-  categoryIcon.textContent = getCategoryIcon(item.category);
+  categoryIcon.textContent = getCategoryIcon(displayCategoryId);
 
   const categoryText = document.createElement("span");
-  categoryText.textContent = getCategoryLabel(categories, item.category);
+  categoryText.textContent = getCategoryLabel(categories, displayCategoryId);
 
   category.append(categoryIcon, categoryText);
+  if (item.rank) {
+    const rank = document.createElement("span");
+    rank.className = "news-rank";
+    rank.textContent = `#${item.rank}`;
+    meta.append(rank);
+  }
 
   const source = document.createElement("span");
   source.className = "news-source";
@@ -135,6 +145,7 @@ function createNewsCard(item, categories) {
 function getCategoryIcon(categoryId) {
   return {
     all: "全",
+    must_read_today: "読",
     local: "地",
     transport: "交",
     shipping: "海",

@@ -11,6 +11,7 @@ const listElement = document.querySelector("#news-list");
 let state = {
   selectedCategory: "all",
   items: [],
+  mustReadItems: [],
   categories: [],
   site: {}
 };
@@ -19,11 +20,21 @@ init();
 
 async function init() {
   try {
-    const { site, categories, news } = await loadNewsBundle();
+    const { site, categories, news, mustReadToday } = await loadNewsBundle();
+    const mustReadCategory = mustReadToday?.category;
+    const categoriesWithMustRead =
+      mustReadCategory && (mustReadToday.items ?? []).length > 0
+        ? [mustReadCategory, ...categories]
+        : categories;
+
     state = {
-      selectedCategory: getInitialCategory(categories),
+      selectedCategory: getInitialCategory(categoriesWithMustRead),
       items: news.items ?? [],
-      categories,
+      mustReadItems: (mustReadToday?.items ?? []).map((item) => ({
+        ...item,
+        category: mustReadCategory?.id ?? "must_read_today"
+      })),
+      categories: categoriesWithMustRead,
       site
     };
 
@@ -56,13 +67,19 @@ function render() {
   });
 
   const limit =
-    state.selectedCategory === "all"
+    state.selectedCategory === "must_read_today"
+      ? Number(state.site.mustReadLimit ?? 10)
+      : state.selectedCategory === "all"
       ? Number(state.site.listLimit ?? 80)
       : Number(state.site.categoryLimit ?? 20);
+  const items =
+    state.selectedCategory === "must_read_today"
+      ? state.mustReadItems
+      : filterItems(state.items, state.selectedCategory);
 
   renderNewsList(
     listElement,
-    filterItems(state.items, state.selectedCategory),
+    items,
     state.categories,
     { limit }
   );

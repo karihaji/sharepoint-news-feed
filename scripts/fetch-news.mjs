@@ -8,6 +8,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CONFIG_DIR = path.join(ROOT, "config");
 const DATA_DIR = path.join(ROOT, "data");
 const NEWS_PATH = path.join(DATA_DIR, "news.json");
+const MUST_READ_PATH = path.join(DATA_DIR, "must-read-today.json");
+const MUST_READ_TRENDS_URL =
+  "https://karihaji.github.io/sns-trend-buzzfeed/data/latest-trends.json";
 
 const TRACKING_PARAMS = new Set([
   "utm_source",
@@ -29,6 +32,72 @@ const DECORATION_WORDS = [
   "new",
   "ニュース",
   "News"
+];
+
+const MUST_READ_CATEGORY = {
+  id: "must_read_today",
+  label: "今日読むべきニュース"
+};
+
+const MUST_READ_LIMIT = 10;
+const MUST_READ_MIN_SCORE = 55;
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
+const SOURCE_RANKS = [
+  { pattern: /pref\.kagoshima|city\.|go\.jp|nhk|国土交通省|厚生労働省|デジタル庁|鹿児島県|鹿児島市/, rank: 1 },
+  { pattern: /南日本新聞|南海日日|奄美新聞|MBC|KKB|KYT|KTS|NHKニュース|TBS NEWS DIG/, rank: 2 },
+  { pattern: /Yahoo!ニュース|読売新聞|朝日新聞|産経ニュース|日テレNEWS|FNN|47NEWS/, rank: 3 },
+  { pattern: /日本海事新聞|海事プレス|LOGISTICS TODAY|観光経済新聞|トラベルボイス|Funeco|窓の杜|INTERNET Watch|GIGAZINE/, rank: 4 },
+  { pattern: /PR TIMES|prtimes/i, rank: 5 }
+];
+
+const EXCLUDE_PATTERNS = [
+  /逮捕|犯罪|裁判|殺人|詐欺|窃盗|強盗|送検|起訴|有罪|容疑/,
+  /死亡|遺体|重体|意識不明/,
+  /芸能|ゴシップ|炎上|不倫|熱愛|離婚/,
+  /試合結果|勝敗|サヨナラ勝ち|高校野球|インターハイ/,
+  /募金|寄付/,
+  /収支|実戦|打ってみた|スペック紹介|新台スケジュールだけ|設定差/,
+  /映画|ドラマ|アニメ|漫画|感想|レビュー|占い/
+];
+
+const EXCLUDE_EXCEPTIONS = [
+  /通行止め|運休|欠航|遅延|復旧|規制解除|警報|避難|注意喚起|インフラ|燃料|運賃|病害虫|サイバー|業務停止|航路|物流|港湾|空港/
+];
+
+const REGIONS = [
+  { id: "tanegashima", pattern: /種子島|西之表|中種子|南種子|種子島空港|西之表港|種子島宇宙センター/ },
+  { id: "yakushima", pattern: /屋久島|屋久島町|宮之浦|安房|屋久島空港|種子屋久/ },
+  { id: "amami", pattern: /奄美|奄美大島|喜界|徳之島|沖永良部|与論/ },
+  { id: "kagoshima_city", pattern: /鹿児島市|小山田|照国|仙巌園|アミュ|鹿児島空港/ },
+  { id: "kagoshima", pattern: /鹿児島|薩摩|大隅|南九州|鹿児島県/ }
+];
+
+const BUSINESS_CATEGORIES = [
+  { id: "shipping", pattern: /フェリー|航路|海運|港湾|船舶|旅客船|内航|港|船員|車両航送/ },
+  { id: "transport", pattern: /タクシー|配車|ライドシェア|地域交通|交通空白|MaaS|デマンド交通|乗合|通行止め|交通規制|道路/ },
+  { id: "tourism", pattern: /観光|旅行|ホテル|宿泊|インバウンド|世界自然遺産|誘客|周遊|イベント/ },
+  { id: "bowling", pattern: /ボウリング|プロボウリング|JPBA|JBC/ },
+  { id: "pachinko", pattern: /パチンコ|パチスロ|遊技|ホール|スマパチ|スマスロ/ },
+  { id: "care", pattern: /介護|福祉|高齢者|認知症|見守り|ケアマネ/ },
+  { id: "energy", pattern: /ガソリン|燃料|エネルギー|電気料金|石油|給油/ },
+  { id: "real_estate", pattern: /不動産|施設運営|商業施設|店舗|出店|開業/ },
+  { id: "recruiting", pattern: /採用|人材|雇用|賃上げ|労務|人手不足|後継者|事業承継/ },
+  { id: "dx", pattern: /DX|AI|生成AI|ChatGPT|システム|アプリ|SaaS|クラウド|セキュリティ|サイバー|デジタル/ },
+  { id: "marketing", pattern: /広報|マーケティング|SNS|販促|ブランド|PR|キャンペーン/ },
+  { id: "management", pattern: /制度|法改正|補助金|行政施策|経営|料金体系|手数料|運賃|価格改定/ },
+  { id: "safety", pattern: /安全|防災|BCP|警報|避難|熱中症|災害|インフラ障害|病害虫/ }
+];
+
+const IMPACT_RULES = [
+  { pattern: /運休|欠航|通行止め|交通規制|警報|避難|規制解除|復旧|インフラ障害/, score: 30, tag: "traffic_or_alert" },
+  { pattern: /運賃|料金|手数料|価格改定|燃料/, score: 25, tag: "fare_or_fee_change" },
+  { pattern: /開始|提供開始|新サービス|新制度|導入|開業|実証/, score: 18, tag: "new_service_or_policy" },
+  { pattern: /人材|採用|雇用|労務|人手不足|後継者|事業承継/, score: 15, tag: "workforce" },
+  { pattern: /安全|防災|BCP|熱中症|病害虫|注意喚起/, score: 18, tag: "safety" },
+  { pattern: /DX|AI|システム|アプリ|省人化|業務改善|効率化|セキュリティ/, score: 15, tag: "dx" },
+  { pattern: /観光|商品造成|世界自然遺産|誘客|周遊|地域ブランド/, score: 12, tag: "tourism_or_brand" },
+  { pattern: /連携|協働|共同|包括協定|地域連携|企業連携/, score: 10, tag: "partnership" }
 ];
 
 const parser = new Parser({
@@ -81,7 +150,12 @@ async function main() {
     "utf8"
   );
 
+  const trends = await loadTrendItems();
+  const mustRead = buildMustReadToday(limited, capturedAt, trends);
+  await fs.writeFile(MUST_READ_PATH, `${JSON.stringify(mustRead, null, 2)}\n`, "utf8");
+
   console.log(`Wrote ${limited.length} items to ${path.relative(ROOT, NEWS_PATH)}`);
+  console.log(`Wrote ${mustRead.items.length} items to ${path.relative(ROOT, MUST_READ_PATH)}`);
 }
 
 function getFeedUrl(source) {
@@ -349,6 +423,349 @@ function addSelectedItem(item, limits) {
   selectedIds.add(item.id);
   perCategoryCounts.set(item.category, count + 1);
   return true;
+}
+
+async function loadTrendItems() {
+  try {
+    const response = await fetch(MUST_READ_TRENDS_URL);
+    if (!response.ok) {
+      console.warn(`[warn] latest trends unavailable: ${response.status}`);
+      return [];
+    }
+    const data = await response.json();
+    return Array.isArray(data.items) ? data.items : [];
+  } catch (error) {
+    console.warn(`[warn] latest trends unavailable: ${error.message}`);
+    return [];
+  }
+}
+
+function buildMustReadToday(items, capturedAt, trends) {
+  const runDate = capturedAt.slice(0, 10);
+  const yesterday = formatDateOnly(new Date(Date.parse(`${runDate}T00:00:00+09:00`) - ONE_DAY_MS));
+  const trendKeywords = extractTrendKeywords(trends);
+  const evaluated = items
+    .filter((item) => isValidMustReadItem(item))
+    .filter((item) => isEligibleMustReadDate(item, runDate, yesterday))
+    .filter((item) => !isExcludedMustReadItem(item))
+    .map((item) => evaluateMustReadItem(item, runDate, yesterday, trendKeywords))
+    .filter((item) => item.score >= MUST_READ_MIN_SCORE)
+    .sort(compareMustReadCandidates);
+
+  const deduped = deduplicateMustRead(evaluated);
+  const selected = selectBalancedMustRead(deduped);
+
+  return {
+    updatedAt: capturedAt,
+    category: MUST_READ_CATEGORY,
+    count: selected.length,
+    items: selected.map((item, index) => ({
+      rank: index + 1,
+      id: item.id,
+      title: item.title,
+      source: item.source,
+      publishedAt: item.publishedAt,
+      url: item.url,
+      originalCategory: item.category,
+      businessCategory: item.businessCategory,
+      region: item.region,
+      selectionRole: item.selectionRole,
+      score: item.score,
+      groupKey: item.groupKey
+    }))
+  };
+}
+
+function isValidMustReadItem(item) {
+  return Boolean(item?.id && item.title && item.source && item.publishedAt && item.url && item.category);
+}
+
+function isEligibleMustReadDate(item, today, yesterday) {
+  if (item.publishedAt === today || item.publishedAt === yesterday) {
+    return true;
+  }
+
+  const ageDays = Math.floor(
+    (Date.parse(`${today}T00:00:00+09:00`) - Date.parse(`${item.publishedAt}T00:00:00+09:00`)) /
+      ONE_DAY_MS
+  );
+  return ageDays >= 2 && ageDays <= 3 && isExceptionalRecentItem(item);
+}
+
+function isExceptionalRecentItem(item) {
+  return /法改正|制度|運賃|料金|航路|新サービス|提供開始|行政|発表|導入|開業|実証|補助金/.test(
+    mustReadText(item)
+  );
+}
+
+function isExcludedMustReadItem(item) {
+  const text = mustReadText(item);
+  if (/募金|寄付/.test(text)) {
+    return true;
+  }
+  if (EXCLUDE_EXCEPTIONS.some((rule) => rule.test(text))) {
+    return false;
+  }
+  return EXCLUDE_PATTERNS.some((rule) => rule.test(text));
+}
+
+function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
+  const text = mustReadText(item);
+  const region = classifyRegion(text);
+  const businessCategory = classifyBusinessCategory(item, text);
+  const matchedRules = [];
+  let score = 0;
+
+  if (item.publishedAt === today) {
+    score += 30;
+    matchedRules.push("published_today");
+  } else if (item.publishedAt === yesterday) {
+    score += 18;
+    matchedRules.push("published_yesterday");
+  } else {
+    score += 5;
+    matchedRules.push("exceptional_recent");
+  }
+
+  if (region) {
+    score += ["tanegashima", "yakushima", "amami"].includes(region) ? 28 : 25;
+    matchedRules.push(`region_${region}`);
+  }
+
+  if (businessCategory !== "other") {
+    score += 30;
+    matchedRules.push(`business_${businessCategory}`);
+  }
+
+  if (isCrossBusiness(text, businessCategory)) {
+    score += 18;
+    matchedRules.push("cross_business");
+  }
+
+  for (const rule of IMPACT_RULES) {
+    if (rule.pattern.test(text)) {
+      score += rule.score;
+      matchedRules.push(rule.tag);
+    }
+  }
+
+  if (getSourceRank(item.source) === 1) {
+    score += 12;
+    matchedRules.push("primary_source");
+  } else if (getSourceRank(item.source) === 2) {
+    score += 8;
+    matchedRules.push("local_major_source");
+  }
+
+  const trendMatches = trendKeywords.filter((keyword) => keyword && text.includes(keyword));
+  if (trendMatches.length > 0) {
+    score += Math.min(12, trendMatches.length * 4);
+    matchedRules.push("trend_match");
+  }
+
+  if (/PR TIMES|プレスリリース|キャンペーン|販売開始/.test(text)) {
+    score -= 10;
+    matchedRules.push("pr_penalty");
+  }
+  if (/衝撃|まさか|ヤバい|驚き|!?|！？/.test(text)) {
+    score -= 20;
+    matchedRules.push("sensational_penalty");
+  }
+  if (/海外|米国|中国|欧州|世界市場/.test(text) && !region) {
+    score -= 15;
+    matchedRules.push("overseas_penalty");
+  }
+
+  const selectionRole = classifySelectionRole(region, businessCategory, text);
+  return {
+    ...item,
+    businessCategory,
+    region: region || "none",
+    selectionRole,
+    score,
+    matchedRules
+  };
+}
+
+function extractTrendKeywords(trends) {
+  return trends
+    .map((item) => cleanText(item.keyword || item.sourceHeadline || item.observationSeed || ""))
+    .filter((value) => value.length >= 2)
+    .slice(0, 20);
+}
+
+function classifyRegion(text) {
+  return REGIONS.find((region) => region.pattern.test(text))?.id ?? "";
+}
+
+function classifyBusinessCategory(item, text) {
+  if (item.category === "shipping") return "shipping";
+  if (item.category === "transport") return "transport";
+  if (item.category === "care") return "care";
+  if (item.category === "pachinko") return "pachinko";
+  if (item.category === "bowling") return "bowling";
+  if (item.category === "ai_it") return "dx";
+  return BUSINESS_CATEGORIES.find((category) => category.pattern.test(text))?.id ?? "other";
+}
+
+function classifySelectionRole(region, businessCategory, text) {
+  const roles = [];
+  if (region) roles.push("local");
+  if (businessCategory !== "other") roles.push("direct_business");
+  if (isCrossBusiness(text, businessCategory)) roles.push("cross_business");
+  return roles.length > 0 ? roles.join("_and_") : "other";
+}
+
+function isCrossBusiness(text, businessCategory) {
+  if (["dx", "recruiting", "management", "safety", "energy", "marketing"].includes(businessCategory)) {
+    return true;
+  }
+  return /採用|人手不足|賃上げ|労務|法改正|制度|補助金|熱中症|防災|BCP|サイバー|生成AI|DX|キャッシュレス|燃料|物価/.test(
+    text
+  );
+}
+
+function deduplicateMustRead(items) {
+  const selected = [];
+  for (const item of items) {
+    const duplicateIndex = selected.findIndex((candidate) => isMustReadDuplicate(candidate, item));
+    if (duplicateIndex === -1) {
+      selected.push(item);
+      continue;
+    }
+
+    const winner = chooseMustReadRepresentative(selected[duplicateIndex], item);
+    selected[duplicateIndex] = winner;
+  }
+  return selected.sort(compareMustReadCandidates);
+}
+
+function isMustReadDuplicate(a, b) {
+  if (a.groupKey && a.groupKey === b.groupKey) return true;
+  const sameDate = a.publishedAt === b.publishedAt;
+  const sameRegion = a.region !== "none" && a.region === b.region;
+  const sameBusiness = a.businessCategory !== "other" && a.businessCategory === b.businessCategory;
+  const titleSimilarity = jaccard(tokenize(a.groupKey || a.title), tokenize(b.groupKey || b.title));
+  return [sameDate, sameRegion, sameBusiness, titleSimilarity >= 0.7].filter(Boolean).length >= 2;
+}
+
+function chooseMustReadRepresentative(a, b) {
+  const rankDiff = getSourceRank(a.source) - getSourceRank(b.source);
+  if (rankDiff !== 0) return rankDiff < 0 ? a : b;
+
+  const capturedDiff = Date.parse(b.capturedAt || 0) - Date.parse(a.capturedAt || 0);
+  if (capturedDiff !== 0) return capturedDiff > 0 ? b : a;
+
+  if (a.title.length !== b.title.length) return a.title.length > b.title.length ? a : b;
+  if ((a.relatedSources?.length ?? 0) !== (b.relatedSources?.length ?? 0)) {
+    return (a.relatedSources?.length ?? 0) > (b.relatedSources?.length ?? 0) ? a : b;
+  }
+  return a.source.localeCompare(b.source, "ja") <= 0 ? a : b;
+}
+
+function selectBalancedMustRead(items) {
+  const selected = [];
+  addRoleItems(selected, items, "local", 4);
+  addRoleItems(selected, items, "direct_business", 4);
+  addRoleItems(selected, items, "cross_business", 2);
+
+  for (const item of items) {
+    if (selected.length >= MUST_READ_LIMIT) break;
+    addMustReadIfBalanced(selected, item, items);
+  }
+
+  return selected.sort(compareMustReadCandidates).slice(0, MUST_READ_LIMIT);
+}
+
+function addRoleItems(selected, items, role, limit) {
+  for (const item of items) {
+    if (selected.length >= MUST_READ_LIMIT || selected.filter((candidate) => candidate.selectionRole.includes(role)).length >= limit) {
+      return;
+    }
+    if (item.selectionRole.includes(role)) {
+      addMustReadIfBalanced(selected, item, items);
+    }
+  }
+}
+
+function addMustReadIfBalanced(selected, item, allItems) {
+  if (selected.some((candidate) => candidate.id === item.id)) return false;
+  if (item.score < MUST_READ_MIN_SCORE) return false;
+
+  const sameBusinessCount = selected.filter(
+    (candidate) => candidate.businessCategory === item.businessCategory
+  ).length;
+  const hasBusinessAlternative = allItems.some(
+    (candidate) =>
+      !selected.some((selectedItem) => selectedItem.id === candidate.id) &&
+      candidate.businessCategory !== item.businessCategory &&
+      candidate.score >= item.score - 10
+  );
+  if (sameBusinessCount >= 2 && !isHighImpactMustRead(item) && hasBusinessAlternative) {
+    return false;
+  }
+
+  const sameSourceCount = selected.filter((candidate) => candidate.source === item.source).length;
+  const hasSourceAlternative = allItems.some(
+    (candidate) =>
+      !selected.some((selectedItem) => selectedItem.id === candidate.id) &&
+      candidate.source !== item.source &&
+      candidate.score >= item.score - 8
+  );
+  if (sameSourceCount >= 3 && hasSourceAlternative) {
+    return false;
+  }
+
+  selected.push(item);
+  return true;
+}
+
+function isHighImpactMustRead(item) {
+  return /traffic_or_alert|fare_or_fee_change|safety/.test(item.matchedRules.join(" "));
+}
+
+function compareMustReadCandidates(a, b) {
+  return (
+    b.score - a.score ||
+    Date.parse(`${b.publishedAt}T00:00:00+09:00`) - Date.parse(`${a.publishedAt}T00:00:00+09:00`) ||
+    roleRank(a.selectionRole) - roleRank(b.selectionRole) ||
+    categoryRank(a.businessCategory) - categoryRank(b.businessCategory) ||
+    a.id.localeCompare(b.id)
+  );
+}
+
+function roleRank(role) {
+  if (role.includes("local")) return 1;
+  if (role.includes("direct_business")) return 2;
+  if (role.includes("cross_business")) return 3;
+  return 4;
+}
+
+function categoryRank(category) {
+  return [
+    "transport",
+    "shipping",
+    "tourism",
+    "care",
+    "dx",
+    "safety",
+    "recruiting",
+    "management",
+    "bowling",
+    "pachinko",
+    "energy",
+    "real_estate",
+    "marketing",
+    "other"
+  ].indexOf(category);
+}
+
+function getSourceRank(source) {
+  return SOURCE_RANKS.find((entry) => entry.pattern.test(source))?.rank ?? 6;
+}
+
+function mustReadText(item) {
+  return `${item.title} ${item.source} ${item.category} ${item.groupKey ?? ""}`;
 }
 
 function normalizeUrl(value) {
