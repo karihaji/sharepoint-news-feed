@@ -39,7 +39,11 @@ const MUST_READ_CATEGORY = {
   label: "今読むべきニュース"
 };
 
-const MUST_READ_LIMIT = 10;
+const MUST_READ_LIMIT = 18;
+const MUST_READ_LOCAL_MIN = 10;
+const MUST_READ_LOCAL_MAX = 13;
+const MUST_READ_OTHER_MIN = 5;
+const MUST_READ_OTHER_MAX = 8;
 const MUST_READ_MIN_SCORE = 55;
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -447,7 +451,7 @@ function buildMustReadToday(items, capturedAt, trends) {
   const trendKeywords = extractTrendKeywords(trends);
   const evaluated = items
     .filter((item) => isValidMustReadItem(item))
-    .filter((item) => isEligibleMustReadDate(item, runDate, yesterday))
+    .filter((item) => isEligibleMustReadDate(item, runDate, yesterday) || isFallbackMustReadDate(item, runDate))
     .filter((item) => !isExcludedMustReadItem(item))
     .map((item) => evaluateMustReadItem(item, runDate, yesterday, trendKeywords))
     .filter((item) => item.score >= MUST_READ_MIN_SCORE)
@@ -499,6 +503,18 @@ function isExceptionalRecentItem(item) {
   );
 }
 
+function isFallbackMustReadDate(item, today) {
+  const ageDays = getPublishedAgeDays(item, today);
+  return ageDays >= 2 && ageDays <= 7;
+}
+
+function getPublishedAgeDays(item, today) {
+  return Math.floor(
+    (Date.parse(`${today}T00:00:00+09:00`) - Date.parse(`${item.publishedAt}T00:00:00+09:00`)) /
+      ONE_DAY_MS
+  );
+}
+
 function isExcludedMustReadItem(item) {
   const text = mustReadText(item);
   if (/募金|寄付/.test(text)) {
@@ -531,6 +547,9 @@ function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
   if (region) {
     score += ["tanegashima", "yakushima", "amami"].includes(region) ? 28 : 25;
     matchedRules.push(`region_${region}`);
+  } else if (item.category === "local") {
+    score += 18;
+    matchedRules.push("category_local");
   }
 
   if (businessCategory !== "other") {
@@ -577,7 +596,7 @@ function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
     matchedRules.push("overseas_penalty");
   }
 
-  const selectionRole = classifySelectionRole(region, businessCategory, text);
+  const selectionRole = classifySelectionRole(region, businessCategory, text, item.category);
   return {
     ...item,
     businessCategory,
@@ -609,9 +628,9 @@ function classifyBusinessCategory(item, text) {
   return BUSINESS_CATEGORIES.find((category) => category.pattern.test(text))?.id ?? "other";
 }
 
-function classifySelectionRole(region, businessCategory, text) {
+function classifySelectionRole(region, businessCategory, text, sourceCategory) {
   const roles = [];
-  if (region) roles.push("local");
+  if (region || sourceCategory === "local") roles.push("local");
   if (businessCategory !== "other") roles.push("direct_business");
   if (isCrossBusiness(text, businessCategory)) roles.push("cross_business");
   return roles.length > 0 ? roles.join("_and_") : "other";
@@ -647,7 +666,10 @@ function isMustReadDuplicate(a, b) {
   const sameRegion = a.region !== "none" && a.region === b.region;
   const sameBusiness = a.businessCategory !== "other" && a.businessCategory === b.businessCategory;
   const titleSimilarity = jaccard(tokenize(a.groupKey || a.title), tokenize(b.groupKey || b.title));
-  return [sameDate, sameRegion, sameBusiness, titleSimilarity >= 0.7].filter(Boolean).length >= 2;
+  return (
+    (titleSimilarity >= 0.7 && (sameDate || sameRegion || sameBusiness)) ||
+    (sameDate && sameRegion && sameBusiness)
+  );
 }
 
 function chooseMustReadRepresentative(a, b) {
@@ -666,27 +688,52 @@ function chooseMustReadRepresentative(a, b) {
 
 function selectBalancedMustRead(items) {
   const selected = [];
-  addRoleItems(selected, items, "local", 4);
-  addRoleItems(selected, items, "direct_business", 4);
-  addRoleItems(selected, items, "cross_business", 2);
+  const localItems = items.filter(isLocalMustRead);
+  const otherItems = items.filter((item) => !isLocalMustRead(item));
 
-  for (const item of items) {
-    if (selected.length >= MUST_READ_LIMIT) break;
-    addMustReadIfBalanced(selected, item, items);
+  addItemsFromPool(selected, localItems, MUST_READ_LOCAL_MIN, items);
+  addItemsFromPool(selected, otherItems, MUST_READ_OTHER_MIN, items);
+
+  while (selected.length < MUST_READ_LIMIT) {
+    const localCount = countLocalMustRead(selected);
+    const otherCount = selected.length - localCount;
+    const canAddLocal = localCount < MUST_READ_LOCAL_MAX;
+    const canAddOther = otherCount < MUST_READ_OTHER_MAX;
+    const candidates = items.filter((item) => {
+      if (selected.some((selectedItem) => selectedItem.id === item.id)) return false;
+      return isLocalMustRead(item) ? canAddLocal : canAddOther;
+    });
+
+    if (candidates.length === 0) break;
+
+    const beforeCount = selected.length;
+    addMustReadIfBalanced(selected, candidates[0], items);
+    if (selected.length === beforeCount) {
+      items = items.filter((item) => item.id !== candidates[0].id);
+    }
   }
 
   return selected.sort(compareMustReadCandidates).slice(0, MUST_READ_LIMIT);
 }
 
-function addRoleItems(selected, items, role, limit) {
-  for (const item of items) {
-    if (selected.length >= MUST_READ_LIMIT || selected.filter((candidate) => candidate.selectionRole.includes(role)).length >= limit) {
-      return;
-    }
-    if (item.selectionRole.includes(role)) {
-      addMustReadIfBalanced(selected, item, items);
-    }
+function addItemsFromPool(selected, pool, targetCount, allItems) {
+  for (const item of pool) {
+    if (selected.length >= MUST_READ_LIMIT || countPoolItems(selected, pool) >= targetCount) return;
+    addMustReadIfBalanced(selected, item, allItems);
   }
+}
+
+function countPoolItems(selected, pool) {
+  const poolIds = new Set(pool.map((item) => item.id));
+  return selected.filter((item) => poolIds.has(item.id)).length;
+}
+
+function countLocalMustRead(items) {
+  return items.filter(isLocalMustRead).length;
+}
+
+function isLocalMustRead(item) {
+  return item.category === "local" || (item.region && item.region !== "none");
 }
 
 function addMustReadIfBalanced(selected, item, allItems) {
@@ -727,8 +774,8 @@ function isHighImpactMustRead(item) {
 
 function compareMustReadCandidates(a, b) {
   return (
-    b.score - a.score ||
     Date.parse(`${b.publishedAt}T00:00:00+09:00`) - Date.parse(`${a.publishedAt}T00:00:00+09:00`) ||
+    b.score - a.score ||
     roleRank(a.selectionRole) - roleRank(b.selectionRole) ||
     categoryRank(a.businessCategory) - categoryRank(b.businessCategory) ||
     a.id.localeCompare(b.id)
