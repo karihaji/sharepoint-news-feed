@@ -255,57 +255,59 @@ function applyLimits(items, site) {
   const categoryLimit = Number(site.categoryLimit ?? 20);
   const listLimit = Number(site.listLimit ?? 80);
   const minPerCategory = Number(site.minPerCategory ?? 0);
+  const localRecentLimit = Number(site.localRecentLimit ?? Math.min(20, categoryLimit));
   const perCategoryCounts = new Map();
   const selectedIds = new Set();
   const selected = [];
   const sorted = items.sort(compareNews);
   const categoryIds = [...new Set(sorted.map((item) => item.category))];
+  const localItemsByDate = sorted
+    .filter((item) => item.category === "local")
+    .sort(compareNewsDateFirst);
 
   const localMinimums = [
     { pattern: /屋久島|屋久島町|宮之浦|安房/, limit: 8 },
     { pattern: /種子島|西之表|中種子|南種子/, limit: 8 }
   ];
 
+  for (const item of localItemsByDate.slice(0, localRecentLimit)) {
+    addSelectedItem(item, {
+      selected,
+      selectedIds,
+      perCategoryCounts,
+      categoryLimit,
+      listLimit
+    });
+  }
+
   for (const group of localMinimums) {
-    const candidates = sorted.filter(
-      (item) => item.category === "local" && group.pattern.test(item.title)
-    );
+    const candidates = localItemsByDate.filter((item) => group.pattern.test(item.title));
 
     for (const item of candidates.slice(0, group.limit)) {
-      if (selected.length >= listLimit || selectedIds.has(item.id)) {
-        continue;
-      }
-
-      const count = perCategoryCounts.get(item.category) ?? 0;
-      if (count >= categoryLimit) {
-        continue;
-      }
-
-      selected.push(item);
-      selectedIds.add(item.id);
-      perCategoryCounts.set(item.category, count + 1);
+      addSelectedItem(item, {
+        selected,
+        selectedIds,
+        perCategoryCounts,
+        categoryLimit,
+        listLimit
+      });
     }
   }
 
   for (const categoryId of categoryIds) {
-    const categoryItems = sorted.filter((item) => item.category === categoryId);
+    const categoryItems =
+      categoryId === "local"
+        ? localItemsByDate
+        : sorted.filter((item) => item.category === categoryId);
+
     for (const item of categoryItems.slice(0, Math.min(minPerCategory, categoryLimit))) {
-      if (selected.length >= listLimit) {
-        break;
-      }
-
-      if (selectedIds.has(item.id)) {
-        continue;
-      }
-
-      const count = perCategoryCounts.get(item.category) ?? 0;
-      if (count >= categoryLimit) {
-        continue;
-      }
-
-      selected.push(item);
-      selectedIds.add(item.id);
-      perCategoryCounts.set(item.category, count + 1);
+      addSelectedItem(item, {
+        selected,
+        selectedIds,
+        perCategoryCounts,
+        categoryLimit,
+        listLimit
+      });
     }
   }
 
@@ -329,6 +331,24 @@ function applyLimits(items, site) {
   }
 
   return selected.sort(compareNews);
+}
+
+function addSelectedItem(item, limits) {
+  const { selected, selectedIds, perCategoryCounts, categoryLimit, listLimit } = limits;
+
+  if (selected.length >= listLimit || selectedIds.has(item.id)) {
+    return false;
+  }
+
+  const count = perCategoryCounts.get(item.category) ?? 0;
+  if (count >= categoryLimit) {
+    return false;
+  }
+
+  selected.push(item);
+  selectedIds.add(item.id);
+  perCategoryCounts.set(item.category, count + 1);
+  return true;
 }
 
 function normalizeUrl(value) {
@@ -415,6 +435,11 @@ function compareNews(a, b) {
     return b._priority - a._priority;
   }
 
+  return dateDiff || b._priority - a._priority;
+}
+
+function compareNewsDateFirst(a, b) {
+  const dateDiff = b._date.getTime() - a._date.getTime();
   return dateDiff || b._priority - a._priority;
 }
 
