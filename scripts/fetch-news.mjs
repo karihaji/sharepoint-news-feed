@@ -73,9 +73,12 @@ const EXCLUDE_PATTERNS = [
   /逮捕|犯罪|裁判|殺人|詐欺|窃盗|強盗|送検|起訴|有罪|容疑/,
   /無断|盗難|盗ん|停職|懲戒|戒告|減給|処分|摘発/,
   /死亡|遺体|重体|意識不明/,
-  /芸能|ゴシップ|炎上|不倫|熱愛|離婚/,
+  /ゴシップ|炎上|不倫|熱愛|離婚/,
+  /選挙ドットコム|市議活動報告|活動報告/,
+  /秋田犬新聞|消費減税|政党支持率|参院選|衆院選|東証|日経平均|南阿蘇|Fukuoka|Growth Next/,
+  /メッシュルーター|ゲーミング|ヘッドセット|ノイズキャンセリング|生パスタ|石焼き|グルメ|ランチ|スイーツ|カフェ|ケーキ|チーズケーキ/,
   /Vietnam\.vn|マイ・トゥイ/,
-  /試合結果|勝敗|サヨナラ勝ち|高校野球|インターハイ/,
+  /試合結果|勝敗|サヨナラ勝ち|高校野球|インターハイ|大リーグ|MLB/,
   /募金|寄付/,
   /収支|実戦|打ってみた|スペック紹介|新台スケジュールだけ|設定差/,
   /映画|ドラマ|アニメ|漫画|感想|レビュー|占い/
@@ -106,7 +109,7 @@ const BUSINESS_CATEGORIES = [
   { id: "dx", pattern: /DX|AI|生成AI|ChatGPT|システム|アプリ|SaaS|クラウド|セキュリティ|サイバー|デジタル/ },
   { id: "marketing", pattern: /広報|マーケティング|SNS|販促|ブランド|PR|キャンペーン/ },
   { id: "management", pattern: /制度|法改正|補助金|行政施策|経営|料金体系|手数料|運賃|価格改定/ },
-  { id: "safety", pattern: /安全|防災|BCP|警報|避難|熱中症|災害|インフラ障害|病害虫/ }
+  { id: "safety", pattern: /安全|防災|BCP|警報|避難|熱中症|災害|地震|震度|インフラ障害|病害虫/ }
 ];
 
 const IMPACT_RULES = [
@@ -114,7 +117,7 @@ const IMPACT_RULES = [
   { pattern: /運賃|料金|手数料|価格改定|燃料/, score: 25, tag: "fare_or_fee_change" },
   { pattern: /開始|提供開始|新サービス|新制度|導入|開業|実証/, score: 18, tag: "new_service_or_policy" },
   { pattern: /人材|採用|雇用|労務|人手不足|後継者|事業承継/, score: 15, tag: "workforce" },
-  { pattern: /安全|防災|BCP|熱中症|病害虫|注意喚起/, score: 18, tag: "safety" },
+  { pattern: /安全|防災|BCP|熱中症|地震|震度|病害虫|注意喚起/, score: 18, tag: "safety" },
   { pattern: /DX|AI|システム|アプリ|省人化|業務改善|効率化|セキュリティ/, score: 15, tag: "dx" },
   { pattern: /観光|商品造成|世界自然遺産|誘客|周遊|地域ブランド/, score: 12, tag: "tourism_or_brand" },
   { pattern: /連携|協働|共同|包括協定|地域連携|企業連携/, score: 10, tag: "partnership" }
@@ -558,10 +561,28 @@ function isExcludedMustReadItem(item) {
   if (/Vietnam\.vn|マイ・トゥイ/.test(text)) {
     return true;
   }
+  if (isIncompleteMustReadTitle(item)) {
+    return true;
+  }
+  if (isOffTargetLocalMustReadItem(item)) {
+    return true;
+  }
   if (EXCLUDE_EXCEPTIONS.some((rule) => rule.test(text))) {
     return false;
   }
   return EXCLUDE_PATTERNS.some((rule) => rule.test(text));
+}
+
+function isIncompleteMustReadTitle(item) {
+  return /\.{3}|…{2,}|…$/.test(item.title);
+}
+
+function isOffTargetLocalMustReadItem(item) {
+  const text = mustReadText(item);
+  if (item.category !== "local") {
+    return false;
+  }
+  return !classifyRegion(text) && OFF_TARGET_PREFECTURE_PATTERN.test(text);
 }
 
 function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
@@ -703,10 +724,12 @@ function isMustReadDuplicate(a, b) {
   const sameDate = a.publishedAt === b.publishedAt;
   const sameRegion = a.region !== "none" && a.region === b.region;
   const sameBusiness = a.businessCategory !== "other" && a.businessCategory === b.businessCategory;
+  const sameDisaster = /地震|震度|警報|避難|通行止め|運休|欠航/.test(`${a.title} ${b.title}`);
   const titleSimilarity = jaccard(tokenize(a.groupKey || a.title), tokenize(b.groupKey || b.title));
   return (
     (titleSimilarity >= 0.7 && (sameDate || sameRegion || sameBusiness)) ||
-    (sameDate && sameRegion && sameBusiness)
+    (sameDate && sameRegion && sameBusiness) ||
+    (sameDate && sameRegion && sameDisaster)
   );
 }
 
