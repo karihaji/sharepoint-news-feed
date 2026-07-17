@@ -50,6 +50,86 @@
     "active": true
   },
   {
+    "id": "google_local_mbc",
+    "category": "local",
+    "source": "Googleニュース（MBC南日本放送）",
+    "type": "google_news_search",
+    "query": "site:mbc.co.jp (鹿児島 OR 屋久島 OR 種子島 OR 奄美 OR 南九州 OR 交通 OR 観光 OR 防災 OR 行政 OR 経済)",
+    "excludeKeywords": ["番組表", "ラジオ", "イベント告知", "プレゼント", "TVer", "YouTube", "弾き語り"],
+    "priority": 96,
+    "active": true
+  },
+  {
+    "id": "google_local_minaminihon",
+    "category": "local",
+    "source": "Googleニュース（南日本新聞）",
+    "type": "google_news_search",
+    "query": "site:373news.com (鹿児島 OR 屋久島 OR 種子島 OR 奄美 OR 南九州 OR 交通 OR 観光 OR 防災 OR 行政 OR 経済)",
+    "excludeKeywords": ["プレゼント", "占い", "読者", "写真特集のみ"],
+    "priority": 96,
+    "active": true
+  },
+  {
+    "id": "google_local_kts",
+    "category": "local",
+    "source": "Googleニュース（KTS鹿児島テレビ）",
+    "type": "google_news_search",
+    "query": "site:kts-tv.co.jp (鹿児島 OR 屋久島 OR 種子島 OR 奄美 OR 南九州 OR 交通 OR 観光 OR 防災 OR 行政 OR 経済)",
+    "excludeKeywords": ["番組", "プレゼント", "TVer", "YouTube"],
+    "priority": 94,
+    "active": true
+  },
+  {
+    "id": "google_local_kkb",
+    "category": "local",
+    "source": "Googleニュース（KKB鹿児島放送）",
+    "type": "google_news_search",
+    "query": "site:kkb.co.jp (鹿児島 OR 屋久島 OR 種子島 OR 奄美 OR 南九州 OR 交通 OR 観光 OR 防災 OR 行政 OR 経済)",
+    "excludeKeywords": ["番組", "プレゼント", "TVer", "YouTube"],
+    "priority": 94,
+    "active": true
+  },
+  {
+    "id": "google_local_kyt",
+    "category": "local",
+    "source": "Googleニュース（KYT鹿児島読売テレビ）",
+    "type": "google_news_search",
+    "query": "site:kyt-tv.com (鹿児島 OR 屋久島 OR 種子島 OR 奄美 OR 南九州 OR 交通 OR 観光 OR 防災 OR 行政 OR 経済)",
+    "excludeKeywords": ["番組", "プレゼント", "TVer", "YouTube"],
+    "priority": 94,
+    "active": true
+  },
+  {
+    "id": "google_local_amami",
+    "category": "local",
+    "source": "Googleニュース（奄美新聞）",
+    "type": "google_news_search",
+    "query": "site:amamishimbun.co.jp (奄美 OR 奄美大島 OR 喜界 OR 徳之島 OR 沖永良部 OR 与論 OR 鹿児島 OR 観光 OR 防災 OR 行政 OR 経済)",
+    "excludeKeywords": ["プレゼント", "購読", "広告"],
+    "priority": 96,
+    "active": true
+  },
+  {
+    "id": "google_local_nankainnichi",
+    "category": "local",
+    "source": "Googleニュース（南海日日新聞）",
+    "type": "google_news_search",
+    "query": "site:nankainn.com (奄美 OR 奄美大島 OR 喜界 OR 徳之島 OR 沖永良部 OR 与論 OR 鹿児島 OR 観光 OR 防災 OR 行政 OR 経済)",
+    "excludeKeywords": ["プレゼント", "購読", "広告"],
+    "priority": 94,
+    "active": true
+  },
+  {
+    "id": "google_local_nhk_kagoshima",
+    "category": "local",
+    "source": "Googleニュース（NHK鹿児島放送局）",
+    "type": "google_news_search",
+    "query": "site:www3.nhk.or.jp/lnews/kagoshima (鹿児島 OR 屋久島 OR 種子島 OR 奄美 OR 南九州 OR 交通 OR 観光 OR 防災 OR 行政 OR 経済)",
+    "excludeKeywords": ["動画", "番組"],
+    "priority": 96,
+    "active": true
+  },
+  {
     "id": "google_transport",
     "category": "transport",
     "source": "Googleニュース",

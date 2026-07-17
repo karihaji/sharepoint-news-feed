@@ -49,17 +49,32 @@ const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 const SOURCE_RANKS = [
   { pattern: /pref\.kagoshima|city\.|go\.jp|nhk|国土交通省|厚生労働省|デジタル庁|鹿児島県|鹿児島市/, rank: 1 },
-  { pattern: /南日本新聞|南海日日|奄美新聞|MBC|KKB|KYT|KTS|NHKニュース|TBS NEWS DIG/, rank: 2 },
+  { pattern: /南日本新聞|南海日日|奄美新聞|MBC|KKB|KYT|KTS|NHKニュース|TBS NEWS DIG|373news|nankainn|amamishimbun|mbc\.co\.jp|kts-tv|kkb\.co\.jp|kyt-tv/, rank: 2 },
   { pattern: /Yahoo!ニュース|読売新聞|朝日新聞|産経ニュース|日テレNEWS|FNN|47NEWS/, rank: 3 },
   { pattern: /日本海事新聞|海事プレス|LOGISTICS TODAY|観光経済新聞|トラベルボイス|Funeco|窓の杜|INTERNET Watch|GIGAZINE/, rank: 4 },
   { pattern: /PR TIMES|prtimes/i, rank: 5 }
 ];
+
+const SOURCE_NAME_ALIASES = [
+  { pattern: /mbc\.co\.jp|MBC南日本放送|南日本放送|TBS NEWS DIG/, name: "MBC南日本放送" },
+  { pattern: /373news\.com|南日本新聞/, name: "南日本新聞" },
+  { pattern: /kts-tv\.co\.jp|KTS鹿児島テレビ|鹿児島テレビ/, name: "KTS鹿児島テレビ" },
+  { pattern: /kkb\.co\.jp|KKB鹿児島放送|鹿児島放送/, name: "KKB鹿児島放送" },
+  { pattern: /kyt-tv\.com|KYT鹿児島読売テレビ|鹿児島読売テレビ/, name: "KYT鹿児島読売テレビ" },
+  { pattern: /amamishimbun\.co\.jp|奄美新聞/, name: "奄美新聞" },
+  { pattern: /nankainn\.com|南海日日新聞|南海日日/, name: "南海日日新聞" },
+  { pattern: /www3\.nhk\.or\.jp\/lnews\/kagoshima|NHK鹿児島放送局/, name: "NHK鹿児島放送局" }
+];
+
+const OFF_TARGET_PREFECTURE_PATTERN =
+  /北海道|青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|東京|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|京都|大阪|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|沖縄/;
 
 const EXCLUDE_PATTERNS = [
   /逮捕|犯罪|裁判|殺人|詐欺|窃盗|強盗|送検|起訴|有罪|容疑/,
   /無断|盗難|盗ん|停職|懲戒|戒告|減給|処分|摘発/,
   /死亡|遺体|重体|意識不明/,
   /芸能|ゴシップ|炎上|不倫|熱愛|離婚/,
+  /Vietnam\.vn|マイ・トゥイ/,
   /試合結果|勝敗|サヨナラ勝ち|高校野球|インターハイ/,
   /募金|寄付/,
   /収支|実戦|打ってみた|スペック紹介|新台スケジュールだけ|設定差/,
@@ -191,7 +206,7 @@ function toNewsItem(item, source, feed, capturedAt) {
 
   const publishedDate = parseDate(item.isoDate ?? item.pubDate ?? item.published ?? item.updated);
   const publishedAt = formatDateOnly(publishedDate);
-  const sourceName = cleanText(
+  const rawSourceName = cleanText(
     item.source?.title ||
       item.source ||
       titleParts.source ||
@@ -199,6 +214,7 @@ function toNewsItem(item, source, feed, capturedAt) {
       feed.title ||
       ""
   );
+  const sourceName = normalizeSourceName(rawSourceName, url, source);
   const groupKey = normalizeTitle(title);
   const searchText = normalizeSearchText(`${title} ${sourceName} ${url}`);
 
@@ -226,6 +242,10 @@ function passesSourceFilters(searchText, source) {
   const includeKeywords = source.includeKeywords ?? [];
   const excludeKeywords = source.excludeKeywords ?? [];
 
+  if (isOffTargetLocalEarthquake(searchText, source)) {
+    return false;
+  }
+
   if (excludeKeywords.some((keyword) => searchText.includes(normalizeSearchText(keyword)))) {
     return false;
   }
@@ -235,6 +255,21 @@ function passesSourceFilters(searchText, source) {
   }
 
   return includeKeywords.some((keyword) => searchText.includes(normalizeSearchText(keyword)));
+}
+
+function normalizeSourceName(sourceName, url, source) {
+  const sourceText = `${sourceName} ${url} ${source.source ?? ""}`;
+  const alias = SOURCE_NAME_ALIASES.find((entry) => entry.pattern.test(sourceText));
+  return alias?.name ?? sourceName;
+}
+
+function isOffTargetLocalEarthquake(searchText, source) {
+  if (source.category !== "local" || !/地震|震度/.test(searchText)) {
+    return false;
+  }
+
+  const isLocalRegion = REGIONS.some((region) => region.pattern.test(searchText));
+  return !isLocalRegion && OFF_TARGET_PREFECTURE_PATTERN.test(searchText);
 }
 
 function splitTitleAndSource(title, sourceType) {
@@ -520,6 +555,9 @@ function isExcludedMustReadItem(item) {
   if (/募金|寄付/.test(text)) {
     return true;
   }
+  if (/Vietnam\.vn|マイ・トゥイ/.test(text)) {
+    return true;
+  }
   if (EXCLUDE_EXCEPTIONS.some((rule) => rule.test(text))) {
     return false;
   }
@@ -691,7 +729,7 @@ function selectBalancedMustRead(items) {
   const localItems = items.filter(isLocalMustRead);
   const otherItems = items.filter((item) => !isLocalMustRead(item));
 
-  addItemsFromPool(selected, localItems, MUST_READ_LOCAL_MIN, items);
+  addItemsFromPool(selected, localItems, MUST_READ_LOCAL_MIN, items, { relaxDiversity: true });
   addItemsFromPool(selected, otherItems, MUST_READ_OTHER_MIN, items);
 
   while (selected.length < MUST_READ_LIMIT) {
@@ -716,10 +754,10 @@ function selectBalancedMustRead(items) {
   return selected.sort(compareMustReadCandidates).slice(0, MUST_READ_LIMIT);
 }
 
-function addItemsFromPool(selected, pool, targetCount, allItems) {
+function addItemsFromPool(selected, pool, targetCount, allItems, options = {}) {
   for (const item of pool) {
     if (selected.length >= MUST_READ_LIMIT || countPoolItems(selected, pool) >= targetCount) return;
-    addMustReadIfBalanced(selected, item, allItems);
+    addMustReadIfBalanced(selected, item, allItems, options);
   }
 }
 
@@ -736,9 +774,13 @@ function isLocalMustRead(item) {
   return item.category === "local" || (item.region && item.region !== "none");
 }
 
-function addMustReadIfBalanced(selected, item, allItems) {
+function addMustReadIfBalanced(selected, item, allItems, options = {}) {
   if (selected.some((candidate) => candidate.id === item.id)) return false;
   if (item.score < MUST_READ_MIN_SCORE) return false;
+  if (options.relaxDiversity) {
+    selected.push(item);
+    return true;
+  }
 
   const sameBusinessCount = selected.filter(
     (candidate) => candidate.businessCategory === item.businessCategory
