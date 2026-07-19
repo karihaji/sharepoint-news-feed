@@ -16,6 +16,8 @@
   --transport-soft: #dbecea;
   --shipping: #3366a8;
   --shipping-soft: #dbe6f6;
+  --tourism-region: #25806d;
+  --tourism-region-soft: #d8efe8;
   --care: #7a6a2e;
   --care-soft: #eee8cf;
   --pachinko: #a34f74;
@@ -136,6 +138,13 @@ h1 {
   box-shadow: 0 8px 20px rgba(51, 102, 168, 0.16);
 }
 
+.category-tab[data-category="tourism_region"][aria-selected="true"] {
+  border-color: var(--tourism-region);
+  background: var(--tourism-region-soft);
+  color: #1f5e50;
+  box-shadow: 0 8px 20px rgba(37, 128, 109, 0.16);
+}
+
 .category-tab[data-category="care"][aria-selected="true"] {
   border-color: var(--care);
   background: var(--care-soft);
@@ -192,6 +201,11 @@ h1 {
 .category-tab[data-category="shipping"] .category-icon,
 .news-category[data-category="shipping"] .category-icon {
   background: var(--shipping);
+}
+
+.category-tab[data-category="tourism_region"] .category-icon,
+.news-category[data-category="tourism_region"] .category-icon {
+  background: var(--tourism-region);
 }
 
 .category-tab[data-category="care"] .category-icon,
@@ -281,6 +295,10 @@ h1 {
   background: linear-gradient(90deg, var(--shipping), var(--shipping-soft));
 }
 
+.news-card[data-category="tourism_region"] .news-accent {
+  background: linear-gradient(90deg, var(--tourism-region), var(--tourism-region-soft));
+}
+
 .news-card[data-category="care"] .news-accent {
   background: linear-gradient(90deg, var(--care), var(--care-soft));
 }
@@ -317,6 +335,11 @@ h1 {
 .news-list[data-selected-category="shipping"] .news-card {
   background: linear-gradient(145deg, #ffffff, rgba(219, 230, 246, 0.52));
   border-color: rgba(51, 102, 168, 0.26);
+}
+
+.news-list[data-selected-category="tourism_region"] .news-card {
+  background: linear-gradient(145deg, #ffffff, rgba(216, 239, 232, 0.52));
+  border-color: rgba(37, 128, 109, 0.28);
 }
 
 .news-list[data-selected-category="care"] .news-card {

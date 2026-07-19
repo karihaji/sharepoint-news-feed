@@ -3,6 +3,7 @@
   { "id": "local", "label": "地域" },
   { "id": "transport", "label": "交通" },
   { "id": "shipping", "label": "海運" },
+  { "id": "tourism_region", "label": "観光・地域事業" },
   { "id": "care", "label": "介護" },
   { "id": "pachinko", "label": "遊技" },
   { "id": "bowling", "label": "ボウリング" },

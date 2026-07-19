@@ -130,6 +130,38 @@
     "active": true
   },
   {
+    "id": "travel_voice_tourism_region",
+    "category": "tourism_region",
+    "source": "トラベルボイス",
+    "type": "rss",
+    "url": "https://www.travelvoice.jp/feed",
+    "includeKeywords": ["鹿児島", "奄美", "屋久島", "種子島", "西之表", "徳之島", "与論", "離島", "地域交通", "二次交通", "フェリー", "空港", "DMO", "自治体", "MaaS"],
+    "excludeKeywords": ["海外", "ハワイ", "タイ", "香港", "カナダ", "欧州", "米国", "中国", "ランキング", "求人"],
+    "priority": 66,
+    "active": true
+  },
+  {
+    "id": "kankokeizai_tourism_region",
+    "category": "tourism_region",
+    "source": "観光経済新聞",
+    "type": "rss",
+    "url": "https://www.kankokeizai.com/feed/",
+    "includeKeywords": ["鹿児島", "奄美", "屋久島", "種子島", "西之表", "徳之島", "与論", "離島", "地域交通", "二次交通", "フェリー", "空港", "DMO", "自治体", "MaaS", "宿泊"],
+    "excludeKeywords": ["海外", "ハワイ", "タイ", "香港", "カナダ", "欧州", "米国", "中国", "ランキング", "求人"],
+    "priority": 72,
+    "active": true
+  },
+  {
+    "id": "google_tourism_region_transport",
+    "category": "tourism_region",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(鹿児島 OR 奄美 OR 屋久島 OR 種子島 OR 西之表 OR 徳之島 OR 与論) (観光 OR インバウンド OR 宿泊 OR 周遊 OR DMO OR 空港 OR フェリー OR 離島航路 OR 二次交通 OR 公共交通 OR レンタカー)",
+    "excludeKeywords": ["博多", "福岡", "熊本", "宮崎", "大分", "佐賀", "長崎", "高校野球", "スポーツ", "占い", "プレゼント", "TVer", "YouTube"],
+    "priority": 92,
+    "active": true
+  },
+  {
     "id": "google_transport",
     "category": "transport",
     "source": "Googleニュース",
@@ -149,6 +181,17 @@
     "includeKeywords": ["タクシー", "ライドシェア", "地域交通", "交通DX", "配車", "MaaS", "デマンド交通", "乗合"],
     "excludeKeywords": ["死亡", "事故", "はね", "衝突", "横断中", "意識不明", "逮捕", "飲酒運転", "スニーカー", "SNKRDUNK", "中古スニーカー"],
     "priority": 60,
+    "active": true
+  },
+  {
+    "id": "google_tourism_region_public_transport",
+    "category": "tourism_region",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(鹿児島 OR 奄美 OR 屋久島 OR 種子島 OR 西之表 OR 徳之島 OR 与論) (二次交通 OR 公共交通 OR 観光交通 OR MaaS OR デマンド交通 OR タクシー OR バス OR レンタカー)",
+    "includeKeywords": ["鹿児島", "奄美", "屋久島", "種子島", "西之表", "徳之島", "与論", "二次交通", "公共交通", "観光交通", "MaaS", "デマンド交通", "タクシー", "バス", "レンタカー"],
+    "excludeKeywords": ["死亡", "事故", "逮捕", "高校野球", "スポーツ", "福岡", "熊本", "宮崎", "大分", "佐賀", "長崎"],
+    "priority": 86,
     "active": true
   },
   {
@@ -192,6 +235,17 @@
     "includeKeywords": ["フェリー", "離島航路", "内航", "海運", "港湾", "船舶", "海事", "船員"],
     "excludeKeywords": ["ロシア", "北極圏", "原子力艦", "軍", "ホルムズ", "ホルモズ", "ペルシャ湾", "イラン", "IMO", "市場規模", "市場分析", "レポート"],
     "priority": 58,
+    "active": true
+  },
+  {
+    "id": "google_tourism_region_shipping",
+    "category": "tourism_region",
+    "source": "Googleニュース",
+    "type": "google_news_search",
+    "query": "(鹿児島 OR 奄美 OR 屋久島 OR 種子島 OR 西之表 OR 徳之島 OR 与論) (フェリー OR 離島航路 OR 高速船 OR 港 OR クルーズ OR 観光船 OR 船旅)",
+    "includeKeywords": ["鹿児島", "奄美", "屋久島", "種子島", "西之表", "徳之島", "与論", "フェリー", "離島航路", "高速船", "港", "クルーズ", "観光船", "船旅"],
+    "excludeKeywords": ["ロシア", "ウクライナ", "軍", "死亡", "事故", "高校野球", "福岡", "熊本", "宮崎", "大分", "佐賀", "長崎"],
+    "priority": 88,
     "active": true
   },
   {
@@ -457,6 +511,39 @@
     "url": "https://internet.watch.impress.co.jp/data/rss/1.0/iw/feed.rdf",
     "includeKeywords": ["AI", "生成AI", "セキュリティ", "サイバー", "Microsoft", "Google", "クラウド", "通信", "SNS", "DX", "自治体"],
     "priority": 68,
+    "active": true
+  },
+  {
+    "id": "pc_watch_ai_it",
+    "category": "ai_it",
+    "source": "PC Watch",
+    "type": "rss",
+    "url": "https://pc.watch.impress.co.jp/data/rss/1.0/pcw/feed.rdf",
+    "includeKeywords": ["AI", "生成AI", "Copilot", "NPU", "GPU", "Microsoft", "Windows", "セキュリティ", "クラウド", "業務", "法人", "DX"],
+    "excludeKeywords": ["ゲーム", "ゲーミング", "レビュー", "ベンチマーク", "自作PC", "セール", "特価"],
+    "priority": 72,
+    "active": true
+  },
+  {
+    "id": "ktai_watch_ai_it",
+    "category": "ai_it",
+    "source": "ケータイ Watch",
+    "type": "rss",
+    "url": "https://k-tai.watch.impress.co.jp/data/rss/1.0/ktw/feed.rdf",
+    "includeKeywords": ["AI", "生成AI", "ChatGPT", "Gemini", "OpenAI", "Copilot", "セキュリティ", "認証", "法人", "自治体", "DX", "業務"],
+    "excludeKeywords": ["レビュー", "アクセサリー", "ケース", "セール", "キャンペーン", "ポイント", "ゲーム", "iPhone", "Apple TV", "ドラマ", "よみうりランド", "値上げ", "店舗", "オープン"],
+    "priority": 56,
+    "active": true
+  },
+  {
+    "id": "cloud_watch_ai_it",
+    "category": "ai_it",
+    "source": "クラウド Watch",
+    "type": "rss",
+    "url": "https://cloud.watch.impress.co.jp/data/rss/1.0/clw/feed.rdf",
+    "includeKeywords": ["AI", "生成AI", "クラウド", "SaaS", "セキュリティ", "DX", "Microsoft", "Google Cloud", "AWS", "自治体", "業務", "データセンター", "ゼロトラスト"],
+    "excludeKeywords": ["人事", "決算", "株価"],
+    "priority": 66,
     "active": true
   },
   {
