@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T07:09:01+09:00",
+  "updatedAt": "2026-07-19T11:11:48+09:00",
   "category": {
     "id": "must_read_today",
     "label": "今読むべきニュース"
@@ -36,20 +36,48 @@
     },
     {
       "rank": 3,
-      "id": "21b8598adb55c5d3",
-      "title": "Appleが日本でiPhone・Apple Music・Apple Oneに続きiCloud＋も値上げ",
+      "id": "8064bc4d83001db7",
+      "title": "リニューアル3カ月で来館者前年比1.7倍――鹿児島市立科学館、親子連れでにぎわう デジタル技術を活用した「鹿児島と宇宙」や「身の回りの科学」人気",
+      "source": "南日本新聞",
+      "publishedAt": "2026-07-19",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1ucUZZVUc3UGlDU1ltQjEwSFR6LVlSYzF1T3MtWnJ2eC1hM2FHWGRsTkwweHl1anNLQTBSTVJxaDRNTktIalBHUUtCcU5hTTg2azF5SWZVYVU?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "dx",
+      "region": "kagoshima_city",
+      "selectionRole": "local_and_direct_business_and_cross_business",
+      "score": 116,
+      "groupKey": "リニューアル3カ月で来館者前年比1.7倍――鹿児島市立科学館 親子連れでにぎわう デジタル技術を活用した 鹿児島と宇宙 や 身の回りの科学 人気"
+    },
+    {
+      "rank": 4,
+      "id": "7316ba8c6e23ab40",
+      "title": "高速道での自動運転、気軽に試せる――鹿児島日産が西千石店に鹿児島県内初の体験型店舗、24日オープン…「販売目的としない接客で多くの人に車に触れてほしい」",
+      "source": "南日本新聞",
+      "publishedAt": "2026-07-19",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9BNmpPLWViM0Y4b0lHaVdlclg3M3Q0TnZuN0JQeXVTemdKaC1PblBOTGV2ZVVYRVlTNGFoRmhBTE9fNmEwVWF3NVp3OUp6SFZ2WE5EUFRaMUQ?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "real_estate",
+      "region": "kagoshima",
+      "selectionRole": "local_and_direct_business",
+      "score": 98,
+      "groupKey": "高速道での自動運転 気軽に試せる――鹿児島日産が西千石店に鹿児島県内初の体験型店舗 24日オープン… 販売目的としない接客で多くの人に車に触れてほしい"
+    },
+    {
+      "rank": 5,
+      "id": "57d38a8024b00c9b",
+      "title": "圧迫された腫瘍の成長がなぜ遅くなるのかをAIが解明",
       "source": "GIGAZINE",
       "publishedAt": "2026-07-19",
-      "url": "https://gigazine.net/news/20260719-apple-raises-icloud-plus-subscription-prices",
+      "url": "https://gigazine.net/news/20260719-physical-pressure-tumors-grow-slower",
       "originalCategory": "ai_it",
       "businessCategory": "dx",
       "region": "none",
       "selectionRole": "direct_business_and_cross_business",
-      "score": 87,
-      "groupKey": "appleが日本でiphone apple music apple oneに続きicloud＋も値上げ"
+      "score": 98,
+      "groupKey": "圧迫された腫瘍の成長がなぜ遅くなるのかをaiが解明"
     },
     {
-      "rank": 4,
+      "rank": 6,
       "id": "cf176b494f3ac8b0",
       "title": "「10月導入予定の新機種『スマスロ 獣王』」 - パチンコパチスロ新台速報のブログ：新台速報 byぱちタウン編集部",
       "source": "DMMぱちタウン",
@@ -63,7 +91,7 @@
       "groupKey": "10月導入予定の新機種 スマスロ 獣王"
     },
     {
-      "rank": 5,
+      "rank": 7,
       "id": "5fe48247f98b8aef",
       "title": "安心し暮らせる地域に 講演、実践発表も 奄美市で地女連学習大会｜社会・経済",
       "source": "南海日日新聞",
@@ -77,21 +105,35 @@
       "groupKey": "安心し暮らせる地域に 講演 実践発表も 奄美市で地女連学習大会 社会 経済"
     },
     {
-      "rank": 6,
-      "id": "65a564c6c58a2bf2",
-      "title": "【鹿児島商業高校】",
-      "source": "KKB鹿児島放送",
+      "rank": 8,
+      "id": "ca8f17d447e8ef45",
+      "title": "クロウサギに合えたよ 集落主催で観察会開催 住民の林倫成さんが講師 天城町当部｜地域",
+      "source": "南海日日新聞",
       "publishedAt": "2026-07-19",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOSjd1VEsxLXBHTXhqNjVOSXhLNWtnYlU2V01xb3kwekhQSzNlN3NYcXlHc3BVNzUwWjFTLXktNi1HYXJFd2tVd0xYa0dyb2RuTmdieWo1ekhrZDdRcjk2QUcxTnYzTkhGaUxoSTRsRFRWdEYtWGNXSEJ1QWx1YzhJQQ?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMi1AJBVV95cUxNQ0dIUVNnd1Bhc2o3M1NfWks3MGVvU1ppanc5bktHVHdXSjVWbEFMMlNzRjlkLU5GelBkUVJ0eEp4WTUwZjh2VnV0VnhsbGJxNEd1c05WTThxTFk2VllRQU9qdHRfVFJveWpWVWpZbjZROHRNdlo3QWh5ZURlVlFQLUFlN0F2SW52clJqcWJ2b2VNbTBiaUVZbEV5M253Tkk4d05IbXl0RWtlNDF2NDBuWXQ4bTEzY2F6cW91MEE0dkZCXzdPVHQyVWJ5blhRWGJEZFl5dm5SYXFzWmVTOXJkWkQ5a08zYXZUZzJ5MWxhdDctWndldTlXMnVEb19LaXRYaHhRSHNvZGtWYm42a3JrQTY1ampKRF9IODdKY1RmRjJQNWRZd3NmekxpemVPeUxlSVk2UGxvNWdvenJqdzVsRFhiYTJtSXpmSS1RVmlQNG5QaExZ?oc=5",
       "originalCategory": "local",
       "businessCategory": "other",
-      "region": "kagoshima",
+      "region": "amami",
       "selectionRole": "local",
-      "score": 68,
-      "groupKey": "鹿児島商業高校"
+      "score": 71,
+      "groupKey": "クロウサギに合えたよ 集落主催で観察会開催 住民の林倫成さんが講師 天城町当部 地域"
     },
     {
-      "rank": 7,
+      "rank": 9,
+      "id": "e182227b3a49764d",
+      "title": "島はハンディとは思わない 河合塾の迫田さんが講演 和泊町｜子ども・教育",
+      "source": "南海日日新聞",
+      "publishedAt": "2026-07-19",
+      "url": "https://news.google.com/rss/articles/CBMi2gJBVV95cUxPeHB1OVRuTTRmQVlocEdDYmNlbVYtTEpqYmgyS3RLVGtPMk5WV1lZYlFYcUpva3BVZ3h2bnRZUHpNNGctUXlmTjhyZk9BUlhjZGxscW1RUExjVF9za1hnd3Fjakotcy0tVDdiZ041RlhNcnZpNlduWTg5MDBFdnNxMWFYLXVoRG5GUVNHSnNWUjl5NElLbDc2ckhZM19ZdlltRHlNOWs3OVlsTWotY2x1RmZzNTZKYktQcG9ncXpRU2MwcjJpMWZNU1U1UGxWSkNFd1JkNWdIWGRlZUFScXM1aWh2VjQtUjNIa3JwenNtOFl1V2pQSzVGVUVVVGJpZkVMTGp3cWZNWmhNVHE0VG9fTVFIR0xRLXVmY0ZjOFVNd0FWeGFPaURxQmtOX3A0ZnBxVnVWUzIwYXhfSTZKVDBPU25pSmFrT2ZaQkFHTUU5cUVOWEZlMk9uS3BR?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "other",
+      "region": "amami",
+      "selectionRole": "local",
+      "score": 71,
+      "groupKey": "島はハンディとは思わない 河合塾の迫田さんが講演 和泊町 子ども 教育"
+    },
+    {
+      "rank": 10,
       "id": "aced2f425321bde7",
       "title": "鹿児島ユナイテッドＦＣ 稲葉修土が今季も主将 クラブスローガンは「敬天愛人」",
       "source": "南日本新聞",
@@ -105,35 +147,35 @@
       "groupKey": "鹿児島ユナイテッドｆｃ 稲葉修土が今季も主将 クラブスローガンは 敬天愛人"
     },
     {
-      "rank": 8,
-      "id": "c301e1405a527973",
-      "title": "鹿児島県下一周駅伝 肝属チームが合宿 暑さに負けず坂道ダッシュ",
+      "rank": 11,
+      "id": "fd1f8a21b44a0d58",
+      "title": "【写真】高校生ら林業機械の操作を体験 姶良市蒲生の大学校オープンキャンパス きょうまで開催",
       "source": "南日本新聞",
       "publishedAt": "2026-07-19",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFA3MTFYc3ZoSUY5bnFXbFpiLWZMc0hVXzJKNW85Z1Y1SFAxMy16dW1tS0doM3BhUGozYzRhWTZYeC1hMVVzdG9aZXowUTJXaHlkeGg5aDZUVlY?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBpVW5UYzAtMFdBc2ZxSkQxRy1kVlg2OGxwbTBraksxU3R6aDEtcXI4ZGlOeGRVYzY3a01aTm9UYWM5YzRIZ1pUVG5uczhicGktUHh3Nk94VQ?oc=5",
       "originalCategory": "local",
       "businessCategory": "other",
       "region": "kagoshima",
       "selectionRole": "local",
       "score": 68,
-      "groupKey": "鹿児島県下一周駅伝 肝属チームが合宿 暑さに負けず坂道ダッシュ"
+      "groupKey": "写真 高校生ら林業機械の操作を体験 姶良市蒲生の大学校オープンキャンパス きょうまで開催"
     },
     {
-      "rank": 9,
-      "id": "642509fd26f14393",
-      "title": "和歌山・新宮：狭い道でもスイスイお迎え、若者・女性らドライバー確保も期待…そのタクシーの正体は？",
-      "source": "読売新聞",
+      "rank": 12,
+      "id": "07f47c726b9a9eea",
+      "title": "狭い道でもスイスイお迎え、若者・女性らドライバー確保も期待…そのタクシーの正体は？（読売新聞オンライン）",
+      "source": "Yahoo!ニュース",
       "publishedAt": "2026-07-19",
-      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9uUUxUNTJBcjl6d015b1czNTF1UWxLNkxPLW4xRVRzQ1ViQmg5czlCNHRkZVJQczljWVUydmQzZDVDZ1FvOXFwOGxSSzZfTF9Kb3dJVFk4QkFscndPWTZ1T2JvS0ZSakVvUDFnTVVJZk9kUQ?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE14dEFSQi10bmNIQzlRdkc0NlF2ZjBlcTlmLXJPQkhOcTdrM09DOFBROTNReXpoNmlaRG5QM2dHZW9kN0FzZjNzdTlxNHJET2ZIV0xGc2p5el9xRFoxSVNKSE13dEd1SkpDc3gzUUlpZEF3RjBiRFFJc0VfU25YR2c?oc=5",
       "originalCategory": "transport",
       "businessCategory": "transport",
       "region": "none",
       "selectionRole": "direct_business",
       "score": 65,
-      "groupKey": "和歌山 新宮 狭い道でもスイスイお迎え 若者 女性らドライバー確保も期待…そのタクシーの正体は"
+      "groupKey": "狭い道でもスイスイお迎え 若者 女性らドライバー確保も期待…そのタクシーの正体は 読売新聞オンライン"
     },
     {
-      "rank": 10,
+      "rank": 13,
       "id": "6dc9046530d14489",
       "title": "Google vs Amazon 自動運転ロボタクシーの有料化で間もなく激突か",
       "source": "自動運転ラボ",
@@ -147,77 +189,21 @@
       "groupKey": "google vs amazon 自動運転ロボタクシーの有料化で間もなく激突か"
     },
     {
-      "rank": 11,
-      "id": "47fa13073b72a43c",
-      "title": "十両・明生、７日目で待望の初白星「奄美の人たちも応援してくれている。パワーをもらって盛り上げたい」（スポーツ報知）",
-      "source": "Yahoo!ニュース",
+      "rank": 14,
+      "id": "4bea3157c2d3e85a",
+      "title": "十両・明生、７日目で待望の初白星「奄美の人たちも応援してくれている。パワーをもらって盛り上げたい」",
+      "source": "スポーツブル",
       "publishedAt": "2026-07-19",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE12ODhXa2VXblhqQ1FtbmxEcEhsdHRoRW1LcWdoOUxJWVJnZUJ5eURaSGoxUlVKcnlHWjM5a0NtSVdQOTlkeFlLVUZHdmVtLWsxbVB5V3d6MTloZUtYYXY3T045bWFGUHJHTzVCQWp1UFRYMjVuSGJEODgwZDQweFE?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE1EZHdURlpETHZYSkJucnhXRlZITVZfMU1yVjBpOFp3dW4xcmJJWkxDRmZJR3FnVFhBbFFHUng4LWJFMUg2RE1z?oc=5",
       "originalCategory": "local",
       "businessCategory": "other",
       "region": "amami",
       "selectionRole": "local",
       "score": 63,
-      "groupKey": "十両 明生 ７日目で待望の初白星 奄美の人たちも応援してくれている パワーをもらって盛り上げたい スポーツ報知"
-    },
-    {
-      "rank": 12,
-      "id": "f2fe9d4e077195eb",
-      "title": "鹿児島県の種子島宇宙センターに設置されたイプシロンS2段目エンジンの地上燃焼試験をする設備＝7月（JAXA提供） - イプシロンS、実用化へ正念場 トラブル続きの新型エンジン使わず、旧型で燃焼試験へ - 写真・画像(2/2)",
-      "source": "西日本新聞me",
-      "publishedAt": "2026-07-19",
-      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9NclJkUmlFZDQzVkJPWm9KWkV5cFRTVGxiXzF0V1ZHSmNXLUdmdS1od2NpMlB2VVZOakluYzhXWlcwZURNeWhyN29XYmlkbTY3b0hOVzdaNA?oc=5",
-      "originalCategory": "local",
-      "businessCategory": "other",
-      "region": "tanegashima",
-      "selectionRole": "local",
-      "score": 63,
-      "groupKey": "鹿児島県の種子島宇宙センターに設置されたイプシロンs2段目エンジンの地上燃焼試験をする設備＝7月 jaxa提供 - イプシロンs 実用化へ正念場 トラブル続きの新型エンジン使わず 旧型で燃焼試験へ"
-    },
-    {
-      "rank": 13,
-      "id": "35699a334a717431",
-      "title": "九州高校総体 中村憲正（楠隼）が大会新V 男子50メートル自由形",
-      "source": "南日本新聞",
-      "publishedAt": "2026-07-19",
-      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE8zMjVia28tNFFmbTRpeXZEdWpGLXVZc1VtaFpNZVV4a3FIRVJsNVB1TWd0Qm9xQXlpdUV2dFlHMzkzWmwybWhleGRBMU8xTVZqWU5UY2pRQXh4aTBpdkZCb0pB?oc=5",
-      "originalCategory": "local",
-      "businessCategory": "other",
-      "region": "none",
-      "selectionRole": "local",
-      "score": 61,
-      "groupKey": "九州高校総体 中村憲正 楠隼 が大会新v 男子50メートル自由形"
-    },
-    {
-      "rank": 14,
-      "id": "7e655d9b4069dd3a",
-      "title": "【女たちは荒野に遊ぶ】39回 第一章 雨――塔子２",
-      "source": "南日本新聞",
-      "publishedAt": "2026-07-19",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9ndXdmVmQ4TzM0SEgzc1hwd2ZYQ1hnYmNZdVlDQ2lSVWR1U3hiYUlxT0pXZVFKbmNzSTA4Y1VobWF3X0ROUFNFQTc2YlJ4TktiYUVLbDVMOUwtdw?oc=5",
-      "originalCategory": "local",
-      "businessCategory": "other",
-      "region": "none",
-      "selectionRole": "local",
-      "score": 61,
-      "groupKey": "女たちは荒野に遊ぶ 39回 第一章 雨――塔子２"
+      "groupKey": "十両 明生 ７日目で待望の初白星 奄美の人たちも応援してくれている パワーをもらって盛り上げたい"
     },
     {
       "rank": 15,
-      "id": "df06077da3845c9c",
-      "title": "回復力 ㊦ 世界自然遺産５年",
-      "source": "奄美新聞",
-      "publishedAt": "2026-07-18",
-      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5SbkNoUG0xb1o1UElyQzJISW5oV3llTU5idVVPcGQ5WkRFUU55RXBsZWFra241akhKZFA1QUxXZG1LZDZEYVc2TUtZemZsRUhhdWduMzR5UQ?oc=5",
-      "originalCategory": "local",
-      "businessCategory": "tourism",
-      "region": "amami",
-      "selectionRole": "local_and_direct_business",
-      "score": 66,
-      "groupKey": "回復力 ㊦ 世界自然遺産５年"
-    },
-    {
-      "rank": 16,
       "id": "5573293295d12684",
       "title": "訪問・在宅介護のICT・AIの導入、補助金をどう使う？ 2026年の最新情報をもとに専門家が種類と進め方を解説",
       "source": "介護ニュースJoint",
@@ -231,7 +217,7 @@
       "groupKey": "訪問 在宅介護のict aiの導入 補助金をどう使う 2026年の最新情報をもとに専門家が種類と進め方を解説"
     },
     {
-      "rank": 17,
+      "rank": 16,
       "id": "d050099acb23675a",
       "title": "世界自然遺産・屋久島で捉えたコブシメの生命の瞬間｜日本限定 2026年PADI AWAREカードデザイン決定、7月21日より発行開始",
       "source": "ドリームニュース",
@@ -245,7 +231,7 @@
       "groupKey": "世界自然遺産 屋久島で捉えたコブシメの生命の瞬間 日本限定 2026年padi awareカードデザイン決定 7月21日より発行開始"
     },
     {
-      "rank": 18,
+      "rank": 17,
       "id": "cf41bab232e78984",
       "title": "大阪府豊中市発｜“導入”では終わらない介護のDX。人と組織が変わり続ける現場へ、2年間の伴走支援事業がスタート",
       "source": "時事ドットコム",
@@ -257,6 +243,20 @@
       "selectionRole": "direct_business_and_cross_business",
       "score": 61,
       "groupKey": "大阪府豊中市発 “導入”では終わらない介護のdx 人と組織が変わり続ける現場へ 2年間の伴走支援事業がスタート"
+    },
+    {
+      "rank": 18,
+      "id": "0a5d70469465ebf2",
+      "title": "薩摩・大隅地方と種子島・屋久島地方に熱中症警戒アラート",
+      "source": "NHKニュース",
+      "publishedAt": "2026-07-15",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1xXzA2cHkxNHhOU2ktTDFJZGpYQUNYUW5Wa290NHQwanFLYm9xM21qMERBcExBd0hNT3FULTFBM0NwTlJEUnNaRnp0UG9mcTV6Q2xjUVhONEU?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "safety",
+      "region": "tanegashima",
+      "selectionRole": "local_and_direct_business_and_cross_business",
+      "score": 82,
+      "groupKey": "薩摩 大隅地方と種子島 屋久島地方に熱中症警戒アラート"
     }
   ]
 }

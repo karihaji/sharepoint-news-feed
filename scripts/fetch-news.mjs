@@ -75,13 +75,13 @@ const EXCLUDE_PATTERNS = [
   /死亡|遺体|重体|意識不明/,
   /ゴシップ|炎上|不倫|熱愛|離婚/,
   /選挙ドットコム|市議活動報告|活動報告/,
-  /秋田犬新聞|消費減税|政党支持率|参院選|衆院選|東証|日経平均|南阿蘇|Fukuoka|Growth Next/,
+  /秋田犬新聞|東奥日報|山陰中央新報|新宮営業所|熊野第一交通|和歌山|消費減税|政党支持率|参院選|衆院選|東証|日経平均|南阿蘇|Fukuoka|Growth Next/,
   /メッシュルーター|ゲーミング|ヘッドセット|ノイズキャンセリング|生パスタ|石焼き|グルメ|ランチ|スイーツ|カフェ|ケーキ|チーズケーキ/,
   /Vietnam\.vn|マイ・トゥイ/,
-  /試合結果|勝敗|サヨナラ勝ち|高校野球|インターハイ|大リーグ|MLB/,
+  /試合結果|勝敗|サヨナラ勝ち|高校野球|高校総体|県下一周駅伝|駅伝|インターハイ|大リーグ|メジャーリーグ|MLB/,
   /募金|寄付/,
   /収支|実戦|打ってみた|スペック紹介|新台スケジュールだけ|設定差/,
-  /映画|ドラマ|アニメ|漫画|感想|レビュー|占い/
+  /映画|ドラマ|アニメ|漫画|感想|レビュー|占い|小説|連載|福袋/
 ];
 
 const EXCLUDE_EXCEPTIONS = [
@@ -91,9 +91,9 @@ const EXCLUDE_EXCEPTIONS = [
 const REGIONS = [
   { id: "tanegashima", pattern: /種子島|西之表|中種子|南種子|種子島空港|西之表港|種子島宇宙センター/ },
   { id: "yakushima", pattern: /屋久島|屋久島町|宮之浦|安房|屋久島空港|種子屋久/ },
-  { id: "amami", pattern: /奄美|奄美大島|喜界|徳之島|沖永良部|与論/ },
-  { id: "kagoshima_city", pattern: /鹿児島市|小山田|照国|仙巌園|アミュ|鹿児島空港/ },
-  { id: "kagoshima", pattern: /鹿児島|薩摩|大隅|南九州|鹿児島県/ }
+  { id: "amami", pattern: /奄美|奄美大島|名瀬|喜界|喜界町|徳之島|天城町|伊仙|和泊|知名|沖永良部|与論|大和村|宇検|瀬戸内町|龍郷|笠利/ },
+  { id: "kagoshima_city", pattern: /鹿児島市|小山田|照国|仙巌園|アミュ|鹿児島空港|谷山|天文館|桜島/ },
+  { id: "kagoshima", pattern: /鹿児島|薩摩|大隅|南九州|鹿児島県|薩摩川内|川内|霧島|鹿屋|肝付|指宿|枕崎|南さつま|南九州|日置|いちき串木野|阿久根|出水|伊佐|姶良|垂水|曽於|志布志|大崎町|東串良|錦江|南大隅|さつま町|湧水|長島町|山形屋/ }
 ];
 
 const BUSINESS_CATEGORIES = [
@@ -574,7 +574,7 @@ function isExcludedMustReadItem(item) {
 }
 
 function isIncompleteMustReadTitle(item) {
-  return /\.{3}|…{2,}|…$/.test(item.title);
+  return /\.{3}|…{2,}|…$/.test(item.title) || normalizeTitle(item.title).length < 12;
 }
 
 function isOffTargetLocalMustReadItem(item) {
@@ -606,9 +606,9 @@ function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
   if (region) {
     score += ["tanegashima", "yakushima", "amami"].includes(region) ? 28 : 25;
     matchedRules.push(`region_${region}`);
-  } else if (item.category === "local") {
-    score += 18;
-    matchedRules.push("category_local");
+  } else if (isTrustedLocalSource(item.source)) {
+    score += 12;
+    matchedRules.push("trusted_local_source");
   }
 
   if (businessCategory !== "other") {
@@ -655,7 +655,7 @@ function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
     matchedRules.push("overseas_penalty");
   }
 
-  const selectionRole = classifySelectionRole(region, businessCategory, text, item.category);
+  const selectionRole = classifySelectionRole(region, businessCategory, text, item.source);
   return {
     ...item,
     businessCategory,
@@ -687,9 +687,9 @@ function classifyBusinessCategory(item, text) {
   return BUSINESS_CATEGORIES.find((category) => category.pattern.test(text))?.id ?? "other";
 }
 
-function classifySelectionRole(region, businessCategory, text, sourceCategory) {
+function classifySelectionRole(region, businessCategory, text, sourceName) {
   const roles = [];
-  if (region || sourceCategory === "local") roles.push("local");
+  if (region || isTrustedLocalSource(sourceName)) roles.push("local");
   if (businessCategory !== "other") roles.push("direct_business");
   if (isCrossBusiness(text, businessCategory)) roles.push("cross_business");
   return roles.length > 0 ? roles.join("_and_") : "other";
@@ -794,7 +794,13 @@ function countLocalMustRead(items) {
 }
 
 function isLocalMustRead(item) {
-  return item.category === "local" || (item.region && item.region !== "none");
+  return (item.region && item.region !== "none") || isTrustedLocalSource(item.source);
+}
+
+function isTrustedLocalSource(sourceName) {
+  return /南日本新聞|南海日日新聞|奄美新聞|MBC南日本放送|KTS鹿児島テレビ|KKB鹿児島放送|KYT鹿児島読売テレビ|NHK鹿児島放送局/.test(
+    sourceName
+  );
 }
 
 function addMustReadIfBalanced(selected, item, allItems, options = {}) {
