@@ -2,7 +2,7 @@
   "updatedAt": "2026-07-19T22:19:59+09:00",
   "category": {
     "id": "must_read_today",
-    "label": "今読むべきニュース"
+    "label": "ピックアップ"
   },
   "count": 18,
   "items": [

@@ -36,7 +36,7 @@ const DECORATION_WORDS = [
 
 const MUST_READ_CATEGORY = {
   id: "must_read_today",
-  label: "今読むべきニュース"
+  label: "ピックアップ"
 };
 
 const MUST_READ_LIMIT = 18;
