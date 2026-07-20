@@ -79,9 +79,13 @@ const EXCLUDE_PATTERNS = [
   /メッシュルーター|ゲーミング|ヘッドセット|ノイズキャンセリング|生パスタ|石焼き|グルメ|ランチ|スイーツ|カフェ|ケーキ|チーズケーキ/,
   /Vietnam\.vn|マイ・トゥイ/,
   /試合結果|勝敗|サヨナラ勝ち|高校野球|高校総体|県下一周駅伝|駅伝|インターハイ|大リーグ|メジャーリーグ|MLB/,
+  /大相撲|大の里|豊昇龍|安青錦|サッカー|プロ野球|Jリーグ|Bリーグ|快勝|４強|4強|シード破る/,
   /募金|寄付/,
   /収支|実戦|打ってみた|スペック紹介|新台スケジュールだけ|設定差/,
-  /映画|ドラマ|アニメ|漫画|感想|レビュー|占い|小説|連載|福袋/
+  /映画|ドラマ|アニメ|漫画|感想|レビュー|占い|小説|連載|福袋/,
+  /グラビア|アイドル|芸能|タレント|女優|俳優|熱愛|結婚発表/,
+  /最高\d+℃|朝版|夕版|天気|軽トラ|サンバー|カッコよすぎる/,
+  /広告を募集|広告募集/
 ];
 
 const EXCLUDE_EXCEPTIONS = [
@@ -492,6 +496,7 @@ function buildMustReadToday(items, capturedAt, trends) {
     .filter((item) => isEligibleMustReadDate(item, runDate, yesterday) || isFallbackMustReadDate(item, runDate))
     .filter((item) => !isExcludedMustReadItem(item))
     .map((item) => evaluateMustReadItem(item, runDate, yesterday, trendKeywords))
+    .filter((item) => !isWeakMustReadCandidate(item))
     .filter((item) => item.score >= MUST_READ_MIN_SCORE)
     .sort(compareMustReadCandidates);
 
@@ -585,10 +590,30 @@ function isOffTargetLocalMustReadItem(item) {
   return !classifyRegion(text) && OFF_TARGET_PREFECTURE_PATTERN.test(text);
 }
 
+function isWeakMustReadCandidate(item) {
+  const text = mustReadText(item);
+  const hasRegion = item.region && item.region !== "none";
+
+  if (!hasRegion && isTrustedLocalSource(item.source)) {
+    return true;
+  }
+
+  if (!hasRegion && /海外|米国|中国|欧州|世界|ウクライナ|インドネシア/.test(text)) {
+    return true;
+  }
+
+  if (!hasRegion && /事故|事件|搬送|けが|火災|沈没/.test(text) && !isHighImpactMustRead(item)) {
+    return true;
+  }
+
+  return false;
+}
+
 function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
   const text = mustReadText(item);
   const region = classifyRegion(text);
   const businessCategory = classifyBusinessCategory(item, text);
+  const mustReadAgeDays = getPublishedAgeDays(item, today);
   const matchedRules = [];
   let score = 0;
 
@@ -661,6 +686,7 @@ function evaluateMustReadItem(item, today, yesterday, trendKeywords) {
     businessCategory,
     region: region || "none",
     selectionRole,
+    mustReadAgeDays,
     score,
     matchedRules
   };
@@ -724,12 +750,13 @@ function isMustReadDuplicate(a, b) {
   const sameDate = a.publishedAt === b.publishedAt;
   const sameRegion = a.region !== "none" && a.region === b.region;
   const sameBusiness = a.businessCategory !== "other" && a.businessCategory === b.businessCategory;
-  const sameDisaster = /地震|震度|警報|避難|通行止め|運休|欠航/.test(`${a.title} ${b.title}`);
+  const sameDisaster = /地震|震度|警報|避難|通行止め|運休|欠航|熱中症|アラート/.test(`${a.title} ${b.title}`);
   const titleSimilarity = jaccard(tokenize(a.groupKey || a.title), tokenize(b.groupKey || b.title));
   return (
     (titleSimilarity >= 0.7 && (sameDate || sameRegion || sameBusiness)) ||
+    (titleSimilarity >= 0.48 && sameDate && sameBusiness) ||
     (sameDate && sameRegion && sameBusiness) ||
-    (sameDate && sameRegion && sameDisaster)
+    (sameRegion && sameDisaster)
   );
 }
 
@@ -774,7 +801,7 @@ function selectBalancedMustRead(items) {
     }
   }
 
-  return selected.sort(compareMustReadCandidates).slice(0, MUST_READ_LIMIT);
+  return selected.sort(compareMustReadDisplay).slice(0, MUST_READ_LIMIT);
 }
 
 function addItemsFromPool(selected, pool, targetCount, allItems, options = {}) {
@@ -851,6 +878,26 @@ function compareMustReadCandidates(a, b) {
     categoryRank(a.businessCategory) - categoryRank(b.businessCategory) ||
     a.id.localeCompare(b.id)
   );
+}
+
+function compareMustReadDisplay(a, b) {
+  return (
+    mustReadDisplayGroup(a) - mustReadDisplayGroup(b) ||
+    Date.parse(`${b.publishedAt}T00:00:00+09:00`) - Date.parse(`${a.publishedAt}T00:00:00+09:00`) ||
+    b.score - a.score ||
+    categoryRank(a.businessCategory) - categoryRank(b.businessCategory) ||
+    getSourceRank(a.source) - getSourceRank(b.source) ||
+    a.id.localeCompare(b.id)
+  );
+}
+
+function mustReadDisplayGroup(item) {
+  const hasRegion = item.region && item.region !== "none";
+  const isRecent = (item.mustReadAgeDays ?? 0) <= 1;
+  if (hasRegion && isRecent) return 1;
+  if (!hasRegion && isRecent) return 2;
+  if (hasRegion) return 3;
+  return 4;
 }
 
 function roleRank(role) {
