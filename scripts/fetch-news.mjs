@@ -79,12 +79,10 @@ const EXCLUDE_PATTERNS = [
   /メッシュルーター|ゲーミング|ヘッドセット|ノイズキャンセリング|生パスタ|石焼き|グルメ|ランチ|スイーツ|カフェ|ケーキ|チーズケーキ/,
   /Vietnam\.vn|マイ・トゥイ/,
   /試合結果|勝敗|サヨナラ勝ち|高校野球|高校総体|県下一周駅伝|駅伝|インターハイ|大リーグ|メジャーリーグ|MLB/,
-  /大相撲|大の里|豊昇龍|安青錦|サッカー|プロ野球|Jリーグ|Bリーグ|快勝|４強|4強|シード破る/,
   /募金|寄付/,
   /収支|実戦|打ってみた|スペック紹介|新台スケジュールだけ|設定差/,
   /映画|ドラマ|アニメ|漫画|感想|レビュー|占い|小説|連載|福袋/,
   /グラビア|アイドル|芸能|タレント|女優|俳優|熱愛|結婚発表/,
-  /最高\d+℃|朝版|夕版|天気|軽トラ|サンバー|カッコよすぎる/,
   /広告を募集|広告募集/
 ];
 
@@ -496,7 +494,6 @@ function buildMustReadToday(items, capturedAt, trends) {
     .filter((item) => isEligibleMustReadDate(item, runDate, yesterday) || isFallbackMustReadDate(item, runDate))
     .filter((item) => !isExcludedMustReadItem(item))
     .map((item) => evaluateMustReadItem(item, runDate, yesterday, trendKeywords))
-    .filter((item) => !isWeakMustReadCandidate(item))
     .filter((item) => item.score >= MUST_READ_MIN_SCORE)
     .sort(compareMustReadCandidates);
 
@@ -593,6 +590,14 @@ function isOffTargetLocalMustReadItem(item) {
 function isWeakMustReadCandidate(item) {
   const text = mustReadText(item);
   const hasRegion = item.region && item.region !== "none";
+
+  if (/大相撲|大の里|豊昇龍|安青錦|サッカー|プロ野球|Jリーグ|Bリーグ|快勝|４強|4強|シード破る/.test(text)) {
+    return true;
+  }
+
+  if (/最高\d+℃|朝版|夕版|天気|軽トラ|サンバー|カッコよすぎる/.test(text)) {
+    return true;
+  }
 
   if (!hasRegion && isTrustedLocalSource(item.source)) {
     return true;
@@ -821,7 +826,7 @@ function countLocalMustRead(items) {
 }
 
 function isLocalMustRead(item) {
-  return (item.region && item.region !== "none") || isTrustedLocalSource(item.source);
+  return item.region && item.region !== "none";
 }
 
 function isTrustedLocalSource(sourceName) {
@@ -894,10 +899,12 @@ function compareMustReadDisplay(a, b) {
 function mustReadDisplayGroup(item) {
   const hasRegion = item.region && item.region !== "none";
   const isRecent = (item.mustReadAgeDays ?? 0) <= 1;
-  if (hasRegion && isRecent) return 1;
-  if (!hasRegion && isRecent) return 2;
-  if (hasRegion) return 3;
-  return 4;
+  const isWeak = isWeakMustReadCandidate(item);
+  if (hasRegion && isRecent && !isWeak) return 1;
+  if (!hasRegion && isRecent && !isWeak) return 2;
+  if (hasRegion && !isWeak) return 3;
+  if (hasRegion) return 4;
+  return 5;
 }
 
 function roleRank(role) {

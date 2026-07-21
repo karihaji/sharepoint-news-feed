@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-07-21T08:48:59+09:00",
+  "updatedAt": "2026-07-21T09:23:30+09:00",
   "category": {
     "id": "must_read_today",
     "label": "ピックアップ"
   },
-  "count": 15,
+  "count": 18,
   "items": [
     {
       "rank": 1,
@@ -50,6 +50,20 @@
     },
     {
       "rank": 4,
+      "id": "6f116569b26eb3c1",
+      "title": "中国籍の男から押収した天然記念物「オカヤドカリ」１１００匹、奄美大島の海岸に戻される…３００匹は衰弱死",
+      "source": "読売新聞",
+      "publishedAt": "2026-07-21",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5uaHdKTXlJSmtrM3pDRjlNSi1qaGo2UUJmQmVkU3VfSmdRT00wUHgzSnNPWnQwOFlldnZEcUFfMmw3aGw1aURZSWdwazdESzBva0hfVVN1VXpULXJZZ21CZ1NwS040UQ?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "other",
+      "region": "amami",
+      "selectionRole": "local",
+      "score": 63,
+      "groupKey": "中国籍の男から押収した天然記念物 オカヤドカリ １１００匹 奄美大島の海岸に戻される…３００匹は衰弱死"
+    },
+    {
+      "rank": 5,
       "id": "233aa37b337da785",
       "title": "日本初の世界自然遺産の島・屋久島「屋久島環境文化村」30周年「美しい自然を維持したい」 鹿児島",
       "source": "MBC南日本放送",
@@ -63,7 +77,7 @@
       "groupKey": "日本初の世界自然遺産の島 屋久島 屋久島環境文化村 30周年 美しい自然を維持したい 鹿児島"
     },
     {
-      "rank": 5,
+      "rank": 6,
       "id": "769c5a35ba908f1f",
       "title": "「奄美大島、徳之島、沖縄島北部及び西表島」 世界遺産5周年で記念シンポジウム",
       "source": "観光経済新聞",
@@ -77,7 +91,7 @@
       "groupKey": "奄美大島 徳之島 沖縄島北部及び西表島 世界遺産5周年で記念シンポジウム"
     },
     {
-      "rank": 6,
+      "rank": 7,
       "id": "c889bd0a6a0f30f2",
       "title": "IBMとRed Hat、AI時代のオープンソースの信頼基盤を構築する「Lightwell」を商用提供開始",
       "source": "クラウド Watch",
@@ -91,7 +105,7 @@
       "groupKey": "ibmとred hat ai時代のオープンソースの信頼基盤を構築する lightwell を商用提供開始"
     },
     {
-      "rank": 7,
+      "rank": 8,
       "id": "cb5cf0f4fa05a136",
       "title": "BBSec、AIと対話しながらインシデント対応を学ぶ訓練シミュレーターを提供開始",
       "source": "クラウド Watch",
@@ -105,7 +119,7 @@
       "groupKey": "bbsec aiと対話しながらインシデント対応を学ぶ訓練シミュレーターを提供開始"
     },
     {
-      "rank": 8,
+      "rank": 9,
       "id": "bf857a0164ed57ce",
       "title": "PwCとトレンドマイクロ、AIエージェントのリスクに関する共同レポートを公開――AIエージェントによる攻撃実験も紹介",
       "source": "クラウド Watch",
@@ -119,7 +133,7 @@
       "groupKey": "pwcとトレンドマイクロ aiエージェントのリスクに関する共同レポートを公開――aiエージェントによる攻撃実験も紹介"
     },
     {
-      "rank": 9,
+      "rank": 10,
       "id": "f29f911d577815af",
       "title": "Google自動運転タクシーの「ウェイモ」 独自の安全新基準モデルを発表へ",
       "source": "自動運転ラボ",
@@ -133,7 +147,7 @@
       "groupKey": "google自動運転タクシーの ウェイモ 独自の安全新基準モデルを発表へ"
     },
     {
-      "rank": 10,
+      "rank": 11,
       "id": "f8a13a7e9b5c8722",
       "title": "新技術で介護ニーズの迅速把握・対応 産学官団体が実証へ、来春開始",
       "source": "MEDIFAX web",
@@ -147,7 +161,7 @@
       "groupKey": "新技術で介護ニーズの迅速把握 対応 産学官団体が実証へ 来春開始"
     },
     {
-      "rank": 11,
+      "rank": 12,
       "id": "03af99f7fa63a60c",
       "title": "【全国のパチンコホール店長、要注目】 店長業務を劇的に効率化する「島図ヒートマップ機能」",
       "source": "グリーンべると",
@@ -161,35 +175,7 @@
       "groupKey": "全国のパチンコホール店長 要注目 店長業務を劇的に効率化する 島図ヒートマップ機能"
     },
     {
-      "rank": 12,
-      "id": "9bebc5572c0eeac5",
-      "title": "【パチンコホール経営支援特集】パチンコホール経営・営業改革宣言！～生産性向上＆効率化を実現するツール集",
-      "source": "P-WORLD",
-      "publishedAt": "2026-07-21",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBCd2dKeHc1Y1RIRXVTbENsY2RjSVBWdXROQ3N0c2JJV2M1WWV0dHlpS3BuWHZvR1R0cUdvQXhzcFhqemcybFl6d2dYQzMxMFBPb2tmV2lhRUthc0Zsd3Y0VQ?oc=5",
-      "originalCategory": "pachinko",
-      "businessCategory": "pachinko",
-      "region": "none",
-      "selectionRole": "direct_business",
-      "score": 80,
-      "groupKey": "パチンコホール経営支援特集 パチンコホール経営 営業改革宣言 ～生産性向上＆効率化を実現するツール集"
-    },
-    {
       "rank": 13,
-      "id": "dd8aedfa882ec5ba",
-      "title": "一人暮らし高齢者のホンネ「施設でなく賃貸がいい」、24時間見守り付きで自立した暮らしを。3社連携で孤独死や入居拒否の壁をなくす「まごころアパート」｜横浜市（SUUMOジャーナル）",
-      "source": "Yahoo!ニュース",
-      "publishedAt": "2026-07-21",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5HazR0R3FpQWtYMHpUM05DOEFBa1lOdmhPOElWb0JZcEpsY1UyRFBVZTJfN3JaT0RySFo3RUF4azJCSVViS25rOHV0ZVVZaG1JNG05ZTFFc0NpYkkxdjk3dG16QjdUb1FzalJhMzFOcVdBOEszUzdPbTZDNVpPTGM?oc=5",
-      "originalCategory": "care",
-      "businessCategory": "care",
-      "region": "none",
-      "selectionRole": "direct_business",
-      "score": 75,
-      "groupKey": "一人暮らし高齢者のホンネ 施設でなく賃貸がいい 24時間見守り付きで自立した暮らしを 3社連携で孤独死や入居拒否の壁をなくす まごころアパート 横浜市 suumoジャーナル"
-    },
-    {
-      "rank": 14,
       "id": "0b1d2c12e01b21fc",
       "title": "薩摩・大隅 種子島・屋久島地方 ２０日も熱中症警戒アラート",
       "source": "NHKニュース",
@@ -203,18 +189,74 @@
       "groupKey": "薩摩 大隅 種子島 屋久島地方 ２０日も熱中症警戒アラート"
     },
     {
-      "rank": 15,
-      "id": "63c7c36fc25c61fd",
-      "title": "鹿児島県屋久島町公式スポットワークプラットフォーム「屋久島町マッチボックス」7/16（木）よりサービス開始",
-      "source": "PR TIMES",
-      "publishedAt": "2026-07-15",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE14MUVOb25NSGlPT3VjNG43eFBna0RtRFdoVzRvMF94bEhUdFZfS0xqTVhQR25ibXAyQ2lRYm14WkxtNmVfUjlGUTRzSWtLMTdldWdpWmpsbC1ZT1l5VGl2bnhyNHRzbjFueVE?oc=5",
+      "rank": 14,
+      "id": "b1c21ed5f902b36e",
+      "title": "「北海道から屋久島まで軽トラで走破！」旅を極めたサンバーがカッコよすぎる！【写真・3枚目】",
+      "source": "Motor Fan",
+      "publishedAt": "2026-07-21",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9HVnBSaDhqblF5VWEwVVJadk9USldkQkgxeE9KMFNJdTUzcGZXbkN1Q192bzZpZ3JPSmZFd2xBblRrSmhHeTlzSTI2NmFUWEE5Q0h2ckpOcmRINDQ1RVB6TlhEeTNsVDQ?oc=5",
       "originalCategory": "local",
-      "businessCategory": "marketing",
+      "businessCategory": "other",
       "region": "yakushima",
+      "selectionRole": "local",
+      "score": 63,
+      "groupKey": "北海道から屋久島まで軽トラで走破 旅を極めたサンバーがカッコよすぎる 写真 3枚目"
+    },
+    {
+      "rank": 15,
+      "id": "925a943e337548a7",
+      "title": "鹿児島：鹿児島城西が快勝４強 尚志館はシード破る：地域ニュース",
+      "source": "読売新聞",
+      "publishedAt": "2026-07-21",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE4xMTAzU0c4UkpNNFJ1WWkxSWtHRzhEX0tQUmpxaFh5T0hxdmlnOVZERktqVGxkR3NsUkcycjZRV3VBdGxYQVRJNzdxYjVvMUYtYlN0dHBDU3p2THJnX3FaLVdDN0kxa3h4RXptNXd0dUM2UE02OFE?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "other",
+      "region": "kagoshima",
+      "selectionRole": "local",
+      "score": 60,
+      "groupKey": "鹿児島 鹿児島城西が快勝４強 尚志館はシード破る 地域ニュース"
+    },
+    {
+      "rank": 16,
+      "id": "d7ab509c354b7017",
+      "title": "【鹿児島市】7/21 最高34℃、暑さに注意、晴れる予想【朝版】",
+      "source": "Yahoo!ニュース",
+      "publishedAt": "2026-07-21",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5NcWFiY3JRQkwyYWJqN2dLS3Z1WE1FdjRMalMyVmhiVEh5N1VXcWstQUdIWEtCRWJFSE5Kc3RTMFNsV2t5aVRmVS11YXFsS0RjbDRUOGN0NFFTVmx2ZEtXR3Y3VTh0cm5Kc1RrSm02MXUyQkEtWXVoU2dES2ZrZjQ?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "other",
+      "region": "kagoshima_city",
+      "selectionRole": "local",
+      "score": 60,
+      "groupKey": "鹿児島市 7 21 最高34℃ 暑さに注意 晴れる予想 朝版"
+    },
+    {
+      "rank": 17,
+      "id": "779ba795b4281993",
+      "title": "【写真】危険運転明確化の法改正施行 速度・飲酒に数値基準",
+      "source": "南日本新聞",
+      "publishedAt": "2026-07-21",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBONmUwS0ZDWXNNM2w0c3hrOFdSVE9RdVptdDB5T0dqMXh3V3BrbkgxdVJwcm1Ec25yZE5mUHRfYndQc2pIazAwODhWNUJWUzZ3VHR2cUo1Z1g0bFFXeHI2LVBFUVZ6M1ky?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "management",
+      "region": "none",
       "selectionRole": "local_and_direct_business_and_cross_business",
-      "score": 64,
-      "groupKey": "鹿児島県屋久島町公式スポットワークプラットフォーム 屋久島町マッチボックス 7 16 木 よりサービス開始"
+      "score": 103,
+      "groupKey": "写真 危険運転明確化の法改正施行 速度 飲酒に数値基準"
+    },
+    {
+      "rank": 18,
+      "id": "3c0568db98f8c42e",
+      "title": "ＩＧアリーナ、１００万人来場 開業１年、経済効果も",
+      "source": "南日本新聞",
+      "publishedAt": "2026-07-21",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE92MHdaTThXVWpHNnNKTzd5S2RXR3RtMGtMMWlnaVE1MVRNUm1TNEpKS0ZjNFRMaUxqTDdfWWZxeUJFdDNlMm95QXNJbzhuQ2JzTGpoWVd1RDM2eG5CWTFPUGFkVWlleVZCZ3c?oc=5",
+      "originalCategory": "local",
+      "businessCategory": "real_estate",
+      "region": "none",
+      "selectionRole": "local_and_direct_business",
+      "score": 103,
+      "groupKey": "ｉｇアリーナ １００万人来場 開業１年 経済効果も"
     }
   ]
 }
