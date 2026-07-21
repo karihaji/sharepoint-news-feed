@@ -806,7 +806,31 @@ function selectBalancedMustRead(items) {
     }
   }
 
+  fillMustReadRemainder(selected, items);
+
   return selected.sort(compareMustReadDisplay).slice(0, MUST_READ_LIMIT);
+}
+
+function fillMustReadRemainder(selected, items) {
+  if (selected.length >= MUST_READ_LIMIT) return;
+
+  const fallbackItems = [...items].sort(compareMustReadFallback);
+  for (const item of fallbackItems) {
+    if (selected.length >= MUST_READ_LIMIT) return;
+    if (selected.some((selectedItem) => selectedItem.id === item.id)) continue;
+    if (item.score < MUST_READ_MIN_SCORE) continue;
+    selected.push(item);
+  }
+}
+
+function compareMustReadFallback(a, b) {
+  return (
+    mustReadDisplayGroup(a) - mustReadDisplayGroup(b) ||
+    Date.parse(`${b.publishedAt}T00:00:00+09:00`) - Date.parse(`${a.publishedAt}T00:00:00+09:00`) ||
+    b.score - a.score ||
+    getSourceRank(a.source) - getSourceRank(b.source) ||
+    a.id.localeCompare(b.id)
+  );
 }
 
 function addItemsFromPool(selected, pool, targetCount, allItems, options = {}) {

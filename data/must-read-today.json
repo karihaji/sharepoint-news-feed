@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T09:23:30+09:00",
+  "updatedAt": "2026-07-21T09:54:13+09:00",
   "category": {
     "id": "must_read_today",
     "label": "ピックアップ"
@@ -50,11 +50,11 @@
     },
     {
       "rank": 4,
-      "id": "6f116569b26eb3c1",
+      "id": "b4e43bd0adb417f9",
       "title": "中国籍の男から押収した天然記念物「オカヤドカリ」１１００匹、奄美大島の海岸に戻される…３００匹は衰弱死",
-      "source": "読売新聞",
+      "source": "Yahoo!ニュース",
       "publishedAt": "2026-07-21",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5uaHdKTXlJSmtrM3pDRjlNSi1qaGo2UUJmQmVkU3VfSmdRT00wUHgzSnNPWnQwOFlldnZEcUFfMmw3aGw1aURZSWdwazdESzBva0hfVVN1VXpULXJZZ21CZ1NwS040UQ?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1FenBHR0ZSQ25QTzRpWFpvWkFTTGlZRzNkblRRemtkc1RMZkE1T1oxek13VGhNNnRaeFNPR2pUODA5cWFnMzVjcGFuQVlsMHRoWlVnOEoxeU9BQlVJMERvZnhmNm9ZbW1jc2plaDNyOGhmRWFIYVNicUsteUNkN2s?oc=5",
       "originalCategory": "local",
       "businessCategory": "other",
       "region": "amami",
@@ -134,6 +134,20 @@
     },
     {
       "rank": 10,
+      "id": "a45c75206e1270b8",
+      "title": "バックオフィスDXのススメ_㈱インフォマート増えるホールのDX活用 業務改革で業界は変わる",
+      "source": "グリーンべると",
+      "publishedAt": "2026-07-21",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1SOGt0Q2xvd0gtQnpfNDl2bE53NEw4OUkwTWNSRXNsenF1dDEtNWFXSnJRM3h0cXRCMHBoZXV1WTJlVjNLaUc3ZGl3MTc0UQ?oc=5",
+      "originalCategory": "pachinko",
+      "businessCategory": "pachinko",
+      "region": "none",
+      "selectionRole": "direct_business_and_cross_business",
+      "score": 98,
+      "groupKey": "バックオフィスdxのススメ_㈱インフォマート増えるホールのdx活用 業務改革で業界は変わる"
+    },
+    {
+      "rank": 11,
       "id": "f29f911d577815af",
       "title": "Google自動運転タクシーの「ウェイモ」 独自の安全新基準モデルを発表へ",
       "source": "自動運転ラボ",
@@ -147,32 +161,18 @@
       "groupKey": "google自動運転タクシーの ウェイモ 独自の安全新基準モデルを発表へ"
     },
     {
-      "rank": 11,
-      "id": "f8a13a7e9b5c8722",
-      "title": "新技術で介護ニーズの迅速把握・対応 産学官団体が実証へ、来春開始",
-      "source": "MEDIFAX web",
+      "rank": 12,
+      "id": "417c4c4967947bd7",
+      "title": "外国人介護職の国家試験合格を後押し 勤務シフトに左右されない動画学習コースを提供開始 ～ 「国家試験合格率向上」と「教育コスト・時間負担の軽減」を実現する新たな研修サービス",
+      "source": "Excite エキサイト",
       "publishedAt": "2026-07-21",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5pVHRZU0VOUno1ZlprUmJmQWxGUHk0cDlaZnBKc2VLaDVSX2xhYzlpMXVGbXoyVEw1QTdhMUs0d0VoOUVETThNZtIBTkFVX3lxTE1pRGNNSC0tNjVmOHlZbS1ZOGtiTFN1cDRlTUx4NkVDUk5OVkdsWXc5SXFlS1ZWa3VDS1pCbUNFM2ZCOXA4bG5SVVlxaHppZw?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFByVFZKOW42Y1RWakVVRVQ3Nkg0b2lsLWpEakNYOVJwYXJ4NXNmbHoyVWxNbEVnWmpMMkhQMW53OWctdHhxSG8wbEk3ZlNRTENzV1VKcnA1c0s0RWZwdmd1WGQ4Xzl3ejRVM3c?oc=5",
       "originalCategory": "care",
       "businessCategory": "care",
       "region": "none",
       "selectionRole": "direct_business",
       "score": 83,
-      "groupKey": "新技術で介護ニーズの迅速把握 対応 産学官団体が実証へ 来春開始"
-    },
-    {
-      "rank": 12,
-      "id": "03af99f7fa63a60c",
-      "title": "【全国のパチンコホール店長、要注目】 店長業務を劇的に効率化する「島図ヒートマップ機能」",
-      "source": "グリーンべると",
-      "publishedAt": "2026-07-21",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE45RUZwUGJDSFB5UkFiclhvaHdQdGVYV1FxRXNRdXoxZWREaUxENkU0QUYzYXU2TDlWMTUxTEkwcU9jSnBJc3FXLUlCdlFwZw?oc=5",
-      "originalCategory": "pachinko",
-      "businessCategory": "pachinko",
-      "region": "none",
-      "selectionRole": "direct_business",
-      "score": 80,
-      "groupKey": "全国のパチンコホール店長 要注目 店長業務を劇的に効率化する 島図ヒートマップ機能"
+      "groupKey": "外国人介護職の国家試験合格を後押し 勤務シフトに左右されない動画学習コースを提供開始 ～ 国家試験合格率向上 と 教育コスト 時間負担の軽減 を実現する新たな研修サービス"
     },
     {
       "rank": 13,
